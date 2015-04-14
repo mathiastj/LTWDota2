@@ -8,7 +8,7 @@
 /game/*
 !/game/dota_addons
 /game/dota_addons/*
-!/game/dota_addons/dotarun
+!/game/dota_addons/samplerts
  
  
 # Ignore content folder, and all default dota_addons folders
@@ -16,6 +16,6 @@
 /content/*
 !/content/dota_addons
 /content/dota_addons/*
-!/content/dota_addons/dotarun
+!/content/dota_addons/samplerts
 
 *.bin
