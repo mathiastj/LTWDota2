@@ -595,7 +595,9 @@ function BuildingHelper:InitializeBuildingEntity(keys)
 
 	-- create building entity
 	print("UnitName: " .. order.unitName)
+
 	local unit = CreateUnitByName(order.unitName, order.pos, false, playersHero, nil, order.team)
+
 	local building = unit --alias
 	building.isBuilding = true
 	-- store reference to the buildingTable in the unit.
@@ -800,7 +802,12 @@ function BuildingHelper:InitializeBuildingEntity(keys)
 		BuildingHelper:OpenSquares(unit.squaresOccupied, "vector")
 		--self:OpenSquares(unit.squaresOccupied "string")
 		if bForceKill then
-			unit:ForceKill(true)
+			if unit.blocker ~= nil then
+		        print("Removing blocker")
+		        DoEntFireByInstanceHandle(unit.blocker, "Disable", "1", 0, nil, nil)
+		        DoEntFireByInstanceHandle(unit.blocker, "Kill", "1", 1, nil, nil)
+		    end
+		    unit:ForceKill(true)
 		end
 	end
 
@@ -826,7 +833,7 @@ function BuildingHelper:InitializeBuildingEntity(keys)
 		ClearParticleTable(player.stickyGhosts[1])
 		--print("Clearing sticky ghost.")
 		table.remove(player.stickyGhosts, 1)
-	end
+	end	
 end
 
 function BuildingHelper:IsBuilding( hUnit )

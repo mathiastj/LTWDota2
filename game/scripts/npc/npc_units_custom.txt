@@ -710,11 +710,12 @@
 
 		// Bounds
 		//----------------------------------------------------------------
-		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+		//"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"			// Hull type used for navigation/locomotion.
 
 		// Movement
 		//----------------------------------------------------------------
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"			// Type of locomotion - ground, air
+		"ShouldDoFlyHeightVisual"   "0"
 		"MovementSpeed"				"450"		// Speed
 		"MovementTurnRate"			"1.0"		// Turning rate.
 		"FollowRange"				"250"		// Distance to keep when following
@@ -1207,7 +1208,7 @@
 
 		// Bounds
 		//----------------------------------------------------------------
-		"BoundsHullName"			"DOTA_HULL_SIZE_BARRACKS"
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"
 
 		// Movement
 		//----------------------------------------------------------------

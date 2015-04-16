@@ -18,35 +18,10 @@ function build( keys )
 			print("Started construction of " .. unit:GetUnitName())
 		end
 
-		unit:SetHullRadius(53)
 
-		print("Trying obstruction")		
-		print("Collision: " .. unit:GetCollisionPadding())
-		print("Hull: " .. unit:GetHullRadius())
-		print("Padding: " .. unit:GetPaddedCollisionRadius())
-		print("Ground move: ", unit:HasGroundMovementCapability())
-		print("Phased: ", unit:IsPhased())
-		print("Unit Collision?: ", unit:NoUnitCollision())
+		unit.ready = false
 
-
-		local origin = unit:GetAbsOrigin()
-		local points = { Vector(origin.x-64, origin.y-64, origin.z),
-		                 Vector(origin.x-64, origin.y+64, origin.z),
-		                 Vector(origin.x+64, origin.y-64, origin.z),
-		                 Vector(origin.x+64, origin.y+64, origin.z)
-		               }
-
-
-		for i=1,#points do
-		    local obstruction = Entities:CreateByClassname("point_simple_obstruction")
-    		Timers:CreateTimer(1, function()
-				-- DeepPrintTable(obstruction)
-			    obstruction:SetEnabled(true,true) --I think the 2nd bool is the vision sight-blocking
-			    obstruction:SetAbsOrigin(points[i])
-			end)
-
-
-		end
+		--Timers:CreateTimer(0.05, function() unit:SetAbsOrigin(pos) end)
 		Timers:CreateTimer(0.1, function()
 				FindClearSpaceForUnit(keys.caster, keys.caster:GetAbsOrigin(), true)
 			end)
@@ -60,9 +35,22 @@ function build( keys )
 		unit:SetMana(0)
 	end)
 	keys:OnConstructionCompleted(function(unit)
+		local point = unit:GetAbsOrigin()
 		if Debug_BH then
 			print("Completed construction of " .. unit:GetUnitName())
 		end
+
+	    local gridNavBlocker = SpawnEntityFromTableSynchronous("point_simple_obstruction", {
+		    origin = point
+		})
+
+		unit.blocker = gridNavBlocker
+
+		unit.ready = true
+
+		unit:SetAbsOrigin(point)
+
+	    --Timers:CreateTimer(0.05, function() unit:SetAbsOrigin(pos) end)
 		FindClearSpaceForUnit(keys.caster, keys.caster:GetAbsOrigin(), true)
 		-- Play construction complete sound.
 		-- Give building its abilities
@@ -110,17 +98,13 @@ function SellBuilding( keys )
 	local name = caster:GetUnitName()
 	local unit_table = GameRules.UnitKV[name]
 	local sellBounty = unit_table.SellBounty
-	DeepPrintTable(caster)
-	
-	-- for i, v in ipairs(player.buildingEntities) do 
-	-- 	if v == caster then
-	-- 		print("Deleted building from table")
-	-- 		--table.remove(player.buildingEntities, i)
-	-- 	end
-	-- 	--PrintTable( player.buildingEntities )
-	-- end
+	print("unit name: " .. name)
+	print("sell bounty: " .. sellBounty)
 
-	caster:RemoveBuilding(true)
+	if (not caster.ready) then
+		print("not ready")
+		return
+	end
 
 	if sellBounty ~= 0 then
 		hero:SetGold(hero:GetGold() + sellBounty, false)
@@ -134,25 +118,52 @@ function SellBuilding( keys )
 		--PopupLumber(caster, sellBounty)
 		PopupGoldGain(caster, sellBounty)
 	end
+
+	Timers:CreateTimer(0.06, function() caster:RemoveBuilding(true) end)
+	
 end
 
 function UpgradeBuilding( keys )
+	
 	local caster = keys.caster
 	local pID = caster:GetPlayerOwnerID()
 	local player = PlayerResource:GetPlayer(pID)
 	local pos = caster:GetAbsOrigin()
 	local hero = PlayerResource:GetSelectedHeroEntity(pID)
 	local squares = caster.squaresOccupied
+	local blocker = caster.blocker
+	local abilityName = keys.ability:GetAbilityName()
+	local ability_table = GameRules.AbilityKV[abilityName]
+	local buildCost = ability_table.AbilityGoldCost
+
+	if (not caster.ready) then
+		print("not ready - returning gold")
+		hero:SetGold(hero:GetGold() + buildCost, false) 
+		return
+	end
 	
-	--caster:RemoveBuilding(true)
 	caster:RemoveSelf()
-	
+
 	unit = CreateUnitByName(keys.Building, pos, false, hero, nil, hero:GetTeamNumber())
-	unit:SetHullRadius(53)
+	unit.blocker = blocker
 	unit:SetOwner(hero)
 	unit:SetControllableByPlayer(pID, true)
 	unit:SetAbsOrigin(pos)
 	unit.squaresOccupied = squares
+	unit.ready = true
+
+	function unit:RemoveBuilding(bForceKill)
+		BuildingHelper:OpenSquares(self.squaresOccupied, "vector")
+		--self:OpenSquares(unit.squaresOccupied "string")
+		if bForceKill then
+		    if self.blocker ~= nil then
+		        print("Removing blocker")
+		        DoEntFireByInstanceHandle(self.blocker, "Disable", "1", 0, nil, nil)
+		        DoEntFireByInstanceHandle(self.blocker, "Kill", "1", 1, nil, nil)
+		    end
+		    self:RemoveSelf()
+		end
+	end
 	
 	--player.lumber = player.lumber - keys.LumberCost
 	--print("Lumber Spend. " .. hero:GetUnitName() .. " is currently at " .. player.lumber)
