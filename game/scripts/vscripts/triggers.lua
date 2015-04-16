@@ -3,17 +3,8 @@ function playerOne(trigger)
 
 	local unit = trigger.activator
 
-
-	print("Collision: " .. unit:GetCollisionPadding())
-	print("Hull: " .. unit:GetHullRadius())
-	print("Padding: " .. unit:GetPaddedCollisionRadius())
-	print("Ground move: ", unit:HasGroundMovementCapability())
-	print("Phased: ", unit:IsPhased())
-	print("Unit Collision?: ", unit:NoUnitCollision())
-
 	if(not string.find(unit:GetUnitName(), "hero")) then
-
-
+		print("is not hero")
 		GameRules.LTW.lives[DOTA_TEAM_GOODGUYS] = GameRules.LTW.lives[DOTA_TEAM_GOODGUYS] - 1
 
 
@@ -22,9 +13,10 @@ function playerOne(trigger)
 
 		local waypoint = Entities:FindByName( nil, "player1Waypoint"):GetAbsOrigin()
 		unit:MoveToPosition(waypoint)
+		print("player1 lives: " .. GameRules.LTW.lives[DOTA_TEAM_GOODGUYS])
 	end
 
-	print("player1 lives: " .. GameRules.LTW.lives[DOTA_TEAM_GOODGUYS])
+	
 end
 
 function playerTwo(trigger)
@@ -32,14 +24,6 @@ function playerTwo(trigger)
 
 
 	local unit = trigger.activator
-
-	print("entered trigger")
-	print("Collision: " .. unit:GetCollisionPadding())
-	print("Hull: " .. unit:GetHullRadius())
-	print("Padding: " .. unit:GetPaddedCollisionRadius())
-	print("Ground move: ", unit:HasGroundMovementCapability())
-	print("Phased: ", unit:IsPhased())
-	print("Unit Collision?: ", unit:NoUnitCollision())
 
 	if(not string.find(unit:GetUnitName(), "hero")) then
 		print("is not hero")
