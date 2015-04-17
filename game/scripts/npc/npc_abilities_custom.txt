@@ -4,6 +4,7 @@
 {
 	"Version"		"1"
 
+
 	"phased"
   	{
     	// General
@@ -20,6 +21,8 @@
         		"States"
         		{
           			"MODIFIER_STATE_FLYING"               "MODIFIER_STATE_VALUE_ENABLED"
+          			"MODIFIER_STATE_NO_UNIT_COLLISION"    "MODIFIER_STATE_VALUE_ENABLED"
+          			"MODIFIER_STATE_INVULNERABLE"         "MODIFIER_STATE_VALUE_ENABLED"
 	        	}	
     	  	}
     	}

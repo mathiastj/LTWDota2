@@ -9,7 +9,7 @@
 		"Ability2"				"build_sharp_tower" 
 		"Ability3"				"samplerts_empty1" 
 		"Ability4"				"samplerts_empty2"
-		"Ability5"				""
+		"Ability5"				"phased"
 		"Ability6"				""
 		"Ability7"				""
 		"Ability8"				""
