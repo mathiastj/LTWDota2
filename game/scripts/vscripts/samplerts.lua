@@ -149,11 +149,11 @@ function SampleRTS:OnHeroInGame(hero)
     ShowGenericPopupToPlayer(hero.player, "#samplerts_instructions_title", "#samplerts_instructions_body", "", "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
 
 	-- This line for example will set the starting gold of every hero to 500 unreliable gold
-	hero:SetGold(500, false)
+	hero:SetGold(40, false)
 
 	-- These lines will create an item and add it to the player, effectively ensuring they start with the item
-	local item = CreateItem("item_example_item", hero, hero)
-	hero:AddItem(item)
+	--local item = CreateItem("item_example_item", hero, hero)
+	--hero:AddItem(item)
 
 	-- Create a builder unit
 	-- if hero.player ~= nil then

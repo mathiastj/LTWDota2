@@ -17,10 +17,45 @@ function LTW:InitLTW()
 	end
 
 	GameRules:GetGameModeEntity():SetThink( "GrantIncome", self, 20 ) 
-	
-	print("LTW INITED")
 
+	local topLeftPoint = {}
+	topLeftPoint.x = -3328
+	topLeftPoint.y = 5696
 
+	local tLP = {}
+	tLP.x = -2240 
+	tLP.y = 4992
+
+	local topRightPoint = {}
+	topRightPoint.x = -1280
+	topRightPoint.y = 5696
+
+	local tRP = {}
+	tRP.x = -192 
+	tRP.y = 4992
+
+	local botLeftPoint = {}
+	botLeftPoint.x = -3328
+	botLeftPoint.y = -1024
+
+	local bLP = {}
+	bLP.x = -2240 
+	bLP.y = -1792
+
+	local botRightPoint = {}
+	botRightPoint.x = -1280
+	botRightPoint.y = -1024
+
+	local bRP = {}
+	bRP.x = -192 
+	bRP.y = -1792
+
+	BuildingHelper:BlockRectangularArea(topLeftPoint, tLP)
+	BuildingHelper:BlockRectangularArea(topRightPoint, tRP)
+	BuildingHelper:BlockRectangularArea(botLeftPoint, bLP)
+	BuildingHelper:BlockRectangularArea(botRightPoint, bRP)
+
+	print("LTW INITED")	
 end
 
 

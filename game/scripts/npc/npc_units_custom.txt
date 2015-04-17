@@ -778,13 +778,6 @@
 		"precache"
 		{
 		    //"soundfile" "soundevents/game_sounds_heroes/game_sounds_spectre.vsndevts"
-		    "model"     "models/items/drow/thief_quiver/thief_quiver.vmdl"
-		    "model"     "models/items/drow/thief_cape/thief_cape.vmdl"
-		    "model"     "models/items/drow/thief_hood/thief_hood.vmdl"
-		    "model"     "models/items/drow/thiefcorset_fixes/thiefcorset_fixes.vmdl"
-		    "model"     "models/items/drow/thief_glove/thief_glove.vmdl"
-		    "model"     "models/items/drow/thief_legs/thief_legs.vmdl"
-		    "model"     "models/items/drow/thief_bow/thief_bow.vmdl"
 		    "model"		"models/projectiles/drow_arrow.vmdl"
 		    "particle"		"particles/econ/items/drow/drow_bow_master_thief.vpcf"
 		    "particle"		"particles/units/heroes/hero_drow/drow_base_attack.vpcf"
@@ -1160,11 +1153,504 @@
 		}
 	}
 
+	"sharp_tower_one"
+	{
+		// General
+		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
+		"Model"						"models/heroes/shredder/shredder.vmdl"	// Model.
+		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
+		"Level"						"4"
+		"UnitLabel"					"healing_ward"
+		
+		// Abilities
+		//----------------------------------------------------------------
+		
+		"Ability1"					"upgrade_sharp_tower_two"			// Ability 1.
+		"Ability2"					"sell_builing"			// Ability 2.
+		"Ability3"					""			// Ability 3.
+		"Ability4"					""			// Ability 4.
+		"Ability5"					""			// Ability 5.
+		"Ability6"					""			// Ability 6 - Extra.
+		"Ability7"					""			// Ability 7 - Extra.
+		"Ability8"					""			// Ability 8 - Extra.
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"0"			// Physical protection.
+		"MagicalResistance"				"0"			// Magical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"			// Type of attack - melee, ranged, etc.
+		"AttackDamageMin"			"3"			// Damage range min.
+		"AttackDamageMax"			"3"			// Damage range max.
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				"1"			// Speed of attack.
+		"AttackAnimationPoint"		"0.5"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"800"		// Range within a target can be acquired.
+		"AttackRange"				"128"		// Range within a target can be attacked.
+
+		// Building Cost Stats
+		//----------------------------------------------------------------
+		"SellBounty"				"10"		//Gained Lumber when selling tower
+		//"LumberCost"				"190"
+
+		// Attributes
+		//----------------------------------------------------------------
+		//"AttributePrimary"			"DOTA_ATTRIBUTE_STRENGTH"
+		//"AttributeBaseStrength"		"0"			// Base strength
+		//"AttributeStrengthGain"		"0"			// Strength bonus per level.
+		//"AttributeBaseIntelligence"	"0"			// Base intelligence
+		//"AttributeIntelligenceGain"	"0"			// Intelligence bonus per level.
+		//"AttributeBaseAgility"		"0"			// Base agility
+		//"AttributeAgilityGain"		"0"			// Agility bonus per level.
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"0"			// Experience earn.
+		"BountyGoldMin"				"0"			// Gold earned min.
+		"BountyGoldMax"				"0"			// Gold earned max.
+
+		// Bounds
+		//----------------------------------------------------------------
+		//"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"			// Hull type used for navigation/locomotion.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"			// Type of locomotion - ground, air
+		"ShouldDoFlyHeightVisual"   "0"
+		"MovementSpeed"				"450"		// Speed
+		"MovementTurnRate"			"1.0"		// Turning rate.
+		"FollowRange"				"250"		// Distance to keep when following
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1000"			// Base health.
+		"StatusHealthRegen"			"0"			// Health regeneration rate.
+		"StatusMana"				"0"			// Base mana.
+		"StatusManaRegen"			"0"			// Mana regeneration rate.
+
+		// Team
+		//----------------------------------------------------------------
+		//"TeamName"					"DOTA_TEAM_GOODGUYS"			// Team name.
+		//"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
+		//"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_SOFT"
+		//"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1000"		// Range of vision during day light.
+		"VisionNighttimeRange"		"1000"		// Range of vision at night time.
+
+		// Creature Data
+		//----------------------------------------------------------------
+		"Creature"
+		{
+			"AttachWearables"
+			{
+			    "Wearable1"
+			    {
+			        "ItemDef" "386"
+			    }
+			    "Wearable2"
+			    {
+			        "ItemDef" "388"
+			    }
+			    "Wearable3"
+			    {
+			        "ItemDef" "389"
+			    }
+			    "Wearable4"
+			    {
+			        "ItemDef" "390"
+			    }
+			    "Wearable5"
+			    {
+			        "ItemDef" "400"
+			    }
+			    "Wearable6"
+			    {
+			        "ItemDef" "401"
+			    }
+			    "Wearable7"
+			    {
+			        "ItemDef" "402"
+			    }
+			    "Wearable8"
+			    {
+			        "ItemDef" "537"
+			    }
+			}
+		}
+		"precache"
+		{
+		    //"soundfile" "soundevents/game_sounds_heroes/game_sounds_spectre.vsndevts"
+		    "model"     "models/heroes/shredder/shredder_driver_hat.vmdl"
+		    "model"     "models/heroes/shredder/shredder_chainsaw.vmdl"
+		    "model"     "models/heroes/shredder/shredder_shoulders.vmdl"
+		    "model"     "models/heroes/shredder/shredder_body.vmdl"
+		    "model"     "models/heroes/shredder/shredder_blade.vmdl"
+		    "model"     "models/heroes/shredder/shredder_armor.vmdl"
+		    "model"     "models/heroes/shredder/shredder_hook.vmdl"
+		    "particle"	"particles/units/heroes/hero_shredder.vpcf"
+		}
+
+	}
+
+	"sharp_tower_two"
+	{
+		// General
+		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
+		"Model"						"models/heroes/shredder/shredder.vmdl"	// Model.
+		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
+		"Level"						"4"
+		"UnitLabel"					"healing_ward"
+		
+		// Abilities
+		//----------------------------------------------------------------
+		
+		"Ability1"					"upgrade_sharp_three_one"			// Ability 1.
+		"Ability2"					"upgrade_sharp_three_two"			// Ability 2.
+		"Ability3"					"sell_builing"			// Ability 3.
+		"Ability4"					""			// Ability 4.
+		"Ability5"					""			// Ability 5.
+		"Ability6"					""			// Ability 6 - Extra.
+		"Ability7"					""			// Ability 7 - Extra.
+		"Ability8"					""			// Ability 8 - Extra.
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"0"			// Physical protection.
+		"MagicalResistance"				"0"			// Magical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"			// Type of attack - melee, ranged, etc.
+		"AttackDamageMin"			"3"			// Damage range min.
+		"AttackDamageMax"			"3"			// Damage range max.
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				"1.66"			// Speed of attack.
+		"AttackAnimationPoint"		"0.5"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"800"		// Range within a target can be acquired.
+		"AttackRange"				"128"		// Range within a target can be attacked.
+
+		"SellBounty"				"20"
+
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"			// Type of locomotion - ground, air
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1000"			// Base health.
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1000"		// Range of vision during day light.
+		"VisionNighttimeRange"		"1000"		// Range of vision at night time.
+
+		"Creature"
+		{
+			"AttachWearables"
+			{
+			    "Wearable1"
+			    {
+			        "ItemDef" "6522"
+			    }
+			    "Wearable2"
+			    {
+			        "ItemDef" "6523"
+			    }
+			    "Wearable3"
+			    {
+			        "ItemDef" "6524"
+			    }
+			    "Wearable4"
+			    {
+			        "ItemDef" "6519"
+			    }
+			    "Wearable5"
+			    {
+			        "ItemDef" "6520"
+			    }
+			    "Wearable6"
+			    {
+			        "ItemDef" "6521"
+			    }
+			    "Wearable7"
+			    {
+			        "ItemDef" "537"
+			    }
+			}
+		}
+
+		"precache"
+		{
+		    //"soundfile" "soundevents/game_sounds_heroes/game_sounds_spectre.vsndevts"
+		    "model"     "models/items/shredder/timberthaw_offhand/timberthaw_offhand.vmdl"
+		    "model"     "models/items/shredder/timberthaw_shoulder/timberthaw_shoulder.vmdl"
+		    "model"     "models/items/shredder/timberthaw_back/timberthaw_back.vmdl"
+		    "model"     "models/items/shredder/timberthaw_armor/timberthaw_armor.vmdl"
+		    "model"     "models/items/shredder/timberthaw_weapon/timberthaw_weapon.vmdl"
+		    "model"     "models/items/shredder/timberthaw_head/timberthaw_head.vmdl"
+		    "particle"	"particles/econ/items/timbersaw/timbersaw_timberthaw.vpcf"
+		    "particle"	"particles/units/heroes/hero_shredder.vpcf"
+		}
+	}
+
+	"sharp_tower_three_one"
+	{
+		// General
+		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
+		"Model"						"models/props_structures/tower_good.vmdl"	// Model.
+		"ModelScale"				"0.4"	
+		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
+		"Level"						"4"
+		"UnitLabel"					"healing_ward"
+		
+		// Abilities
+		//----------------------------------------------------------------
+		
+		"Ability1"					"upgrade_sharp_four_one"			// Ability 1.
+		"Ability2"					"sell_builing"			// Ability 2.
+		"Ability3"					""			// Ability 3.
+		"Ability4"					""			// Ability 4.
+		"Ability5"					""			// Ability 5.
+		"Ability6"					""			// Ability 6 - Extra.
+		"Ability7"					""			// Ability 7 - Extra.
+		"Ability8"					""			// Ability 8 - Extra.
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"0"			// Physical protection.
+		"MagicalResistance"				"0"			// Magical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"			// Type of attack - melee, ranged, etc.
+		"AttackDamageMin"			"4"			// Damage range min.
+		"AttackDamageMax"			"4"			// Damage range max.
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				"3.33"			// Speed of attack.
+		"AttackAnimationPoint"		"0.5"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"800"		// Range within a target can be acquired.
+		"AttackRange"				"128"		// Range within a target can be attacked.
+
+		"SellBounty"				"80"
+
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"			// Type of locomotion - ground, air
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1000"			// Base health.
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1000"		// Range of vision during day light.
+		"VisionNighttimeRange"		"1000"		// Range of vision at night time.
+
+	}
+
+	"sharp_tower_three_two"
+	{
+		// General
+		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
+		"Model"						"models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl"	// Model.
+		"ModelScale"				"0.4"
+		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
+		"Level"						"4"
+		"UnitLabel"					"healing_ward"
+		
+		// Abilities
+		//----------------------------------------------------------------
+		
+		"Ability1"					"upgrade_sharp_four_two"			// Ability 1.
+		"Ability2"					"sell_builing"			// Ability 2.
+		"Ability3"					""			// Ability 3.
+		"Ability4"					""			// Ability 4.
+		"Ability5"					""			// Ability 5.
+		"Ability6"					""			// Ability 6 - Extra.
+		"Ability7"					""			// Ability 7 - Extra.
+		"Ability8"					""			// Ability 8 - Extra.
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"0"			// Physical protection.
+		"MagicalResistance"				"0"			// Magical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"			// Type of attack - melee, ranged, etc.
+		"AttackDamageMin"			"8"			// Damage range min.
+		"AttackDamageMax"			"8"			// Damage range max.
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				"0.5"			// Speed of attack.
+		"AttackAnimationPoint"		"0.5"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"800"		// Range within a target can be acquired.
+		"AttackRange"				"128"		// Range within a target can be attacked.
+
+		"SellBounty"				"80"
+
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"			// Type of locomotion - ground, air
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1000"			// Base health.
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1000"		// Range of vision during day light.
+		"VisionNighttimeRange"		"1000"		// Range of vision at night time.
+	}
+
+	"sharp_tower_four_one"
+	{
+		// General
+		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
+		"Model"						"models/props_structures/tower_good.vmdl"	// Model.
+		"ModelScale"				"0.5"
+		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
+		"Level"						"4"
+		"UnitLabel"					"healing_ward"
+		
+		// Abilities
+		//----------------------------------------------------------------
+		
+		"Ability1"					"sell_builing"			// Ability 1.
+		"Ability2"					""			// Ability 2.
+		"Ability3"					""			// Ability 3.
+		"Ability4"					""			// Ability 4.
+		"Ability5"					""			// Ability 5.
+		"Ability6"					""			// Ability 6 - Extra.
+		"Ability7"					""			// Ability 7 - Extra.
+		"Ability8"					""			// Ability 8 - Extra.
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"0"			// Physical protection.
+		"MagicalResistance"				"0"			// Magical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"			// Type of attack - melee, ranged, etc.
+		"AttackDamageMin"			"35"			// Damage range min.
+		"AttackDamageMax"			"35"			// Damage range max.
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				"1"			// Speed of attack.
+		"AttackAnimationPoint"		"0.5"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"800"		// Range within a target can be acquired.
+		"AttackRange"				"128"		// Range within a target can be attacked.
+
+		"SellBounty"				"580"
+
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"			// Type of locomotion - ground, air
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1000"			// Base health.
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1000"		// Range of vision during day light.
+		"VisionNighttimeRange"		"1000"		// Range of vision at night time.
+	}
+
+	"sharp_tower_four_two"
+	{
+		// General
+		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
+		"Model"						"models/creeps/lane_creeps/creep_good_siege/creep_good_siege_deathsim.vmdl"	// Model.
+		"ModelScale"				"0.8"
+		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
+		"Level"						"4"
+		"UnitLabel"					"healing_ward"
+		
+		// Abilities
+		//----------------------------------------------------------------
+		
+		"Ability1"					"sell_builing"			// Ability 1.
+		"Ability2"					""			// Ability 2.
+		"Ability3"					""			// Ability 3.
+		"Ability4"					""			// Ability 4.
+		"Ability5"					""			// Ability 5.
+		"Ability6"					""			// Ability 6 - Extra.
+		"Ability7"					""			// Ability 7 - Extra.
+		"Ability8"					""			// Ability 8 - Extra.
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"0"			// Physical protection.
+		"MagicalResistance"				"0"			// Magical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"			// Type of attack - melee, ranged, etc.
+		"AttackDamageMin"			"45"			// Damage range min.
+		"AttackDamageMax"			"45"			// Damage range max.
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"				"0.5"			// Speed of attack.
+		"AttackAnimationPoint"		"0.5"		// Normalized time in animation cycle to attack.
+		"AttackAcquisitionRange"	"800"		// Range within a target can be acquired.
+		"AttackRange"				"128"		// Range within a target can be attacked.
+
+		"SellBounty"				"580"
+
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_REGULAR"			// Hull type used for navigation/locomotion.
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"			// Type of locomotion - ground, air
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"1000"			// Base health.
+		
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"		"1000"		// Range of vision during day light.
+		"VisionNighttimeRange"		"1000"		// Range of vision at night time.
+
+
+		"precache"
+		{
+		    //"soundfile" "soundevents/game_sounds_heroes/game_sounds_spectre.vsndevts"
+		    "model"     "models/creeps/lane_creeps/creep_good_siege/creep_good_siege_deathsim.vmdl"
+		}
+	}
+
 
 	"npc_sheep"
 	{
 		// General
-		//
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/props_gameplay/sheep01.vmdl"	// Model.
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
@@ -1232,7 +1718,6 @@
 	"npc_wolf"
 	{
 		// General
-		//
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/items/lycan/wolves/alpha_summon_01/alpha_summon_01.vmdl"	// Model.
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
@@ -1300,7 +1785,6 @@
 	"npc_skeleton"
 	{
 		// General
-		//
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl"	// Model.
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
@@ -1368,7 +1852,6 @@
 	"npc_acolyte"
 	{
 		// General
-		//
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/creeps/neutral_creeps/n_creep_ghost_b/n_creep_ghost_b.vmdl"	// Model.
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
@@ -1434,7 +1917,6 @@
 	"npc_treant"
 	{
 		// General
-		//
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/heroes/furion/treant.vmdl"	// Model.
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
@@ -1501,7 +1983,6 @@
 	"npc_swordsman"
 	{
 		// General
-		//
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl"	// Model.
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.

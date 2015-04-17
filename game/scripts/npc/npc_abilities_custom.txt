@@ -161,6 +161,7 @@
 		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
 		//"CancelsBuildingGhost"			"0" //bool
 		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"arrow_tower_three_one"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"120"
 		// End of BuildingHelper info
@@ -201,6 +202,7 @@
 		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
 		//"CancelsBuildingGhost"			"0" //bool
 		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"arrow_tower_three_two"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"120"
 		// End of BuildingHelper info
@@ -241,6 +243,7 @@
 		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
 		//"CancelsBuildingGhost"			"0" //bool
 		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"arrow_tower_four_one"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"1000"
 		// End of BuildingHelper info
@@ -281,6 +284,7 @@
 		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
 		//"CancelsBuildingGhost"			"0" //bool
 		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"arrow_tower_four_two"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"1000"
 		// End of BuildingHelper info
@@ -300,6 +304,250 @@
 				"Function"				"UpgradeBuilding"
 				"LumberCost"			"20"
 				"Building"				"arrow_tower_four_two"
+			}
+		}
+	}
+
+	"build_sharp_tower"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"build_sharp_tower"
+		"AbilityCastAnimation"			"ACT_DOTA_DISABLED"
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"2" // this is (3x64) by (3x64) units, so 9 squares.
+		"BuildTime"						"2.0"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"							"1" //bool
+		"MaxScale"						"1"
+		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
+		//"CancelsBuildingGhost"			"0" //bool
+		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"sharp_tower_one"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		// End of BuildingHelper info
+
+		"AbilityCastPoint"				"0.0"
+		"MaxLevel"						"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities.lua"
+				"Function"				"build"
+			}
+		}
+	}
+
+	"upgrade_sharp_tower_two"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"build_sharp_tower"
+		"AbilityCastAnimation"			"ACT_DOTA_DISABLED"
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"2" // this is (3x64) by (3x64) units, so 9 squares.
+		"BuildTime"						"2.0"
+		"AbilityCastRange"				"100"
+		"UpdateHealth"					"1" //bool
+		"Scale"							"1" //bool
+		"MaxScale"						"1"
+		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
+		//"CancelsBuildingGhost"			"0" //bool
+		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"sharp_tower_two"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"30"
+		// End of BuildingHelper info
+
+		"AbilityCastPoint"				"0.0"
+		"MaxLevel"						"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities.lua"
+				"Function"				"UpgradeBuilding"
+				"LumberCost"			"20"
+				"Building"				"sharp_tower_two"
+			}
+		}
+	}
+
+	"upgrade_sharp_three_one"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"build_sharp_tower"
+		"AbilityCastAnimation"			"ACT_DOTA_DISABLED"
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"2" // this is (3x64) by (3x64) units, so 9 squares.
+		"BuildTime"						"2.0"
+		"AbilityCastRange"				"100"
+		"UpdateHealth"					"1" //bool
+		"Scale"							"1" //bool
+		"MaxScale"						"0.4"
+		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
+		//"CancelsBuildingGhost"			"0" //bool
+		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"sharp_tower_three_one"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"120"
+		// End of BuildingHelper info
+
+		"AbilityCastPoint"				"0.0"
+		"MaxLevel"						"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities.lua"
+				"Function"				"UpgradeBuilding"
+				"LumberCost"			"20"
+				"Building"				"sharp_tower_three_one"
+			}
+		}
+	}
+
+	"upgrade_sharp_three_two"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"build_sharp_tower"
+		"AbilityCastAnimation"			"ACT_DOTA_DISABLED"
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"2" // this is (3x64) by (3x64) units, so 9 squares.
+		"BuildTime"						"2.0"
+		"AbilityCastRange"				"100"
+		"UpdateHealth"					"1" //bool
+		"Scale"							"1" //bool
+		"MaxScale"						"0.4"
+		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
+		//"CancelsBuildingGhost"			"0" //bool
+		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"sharp_tower_three_two"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"120"
+		// End of BuildingHelper info
+
+		"AbilityCastPoint"				"0.0"
+		"MaxLevel"						"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities.lua"
+				"Function"				"UpgradeBuilding"
+				"LumberCost"			"20"
+				"Building"				"sharp_tower_three_two"
+			}
+		}
+	}
+
+	"upgrade_sharp_four_one"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"build_sharp_tower"
+		"AbilityCastAnimation"			"ACT_DOTA_DISABLED"
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"2" // this is (3x64) by (3x64) units, so 9 squares.
+		"BuildTime"						"2.0"
+		"AbilityCastRange"				"100"
+		"UpdateHealth"					"1" //bool
+		"Scale"							"1" //bool
+		"MaxScale"						"0.5"
+		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
+		//"CancelsBuildingGhost"			"0" //bool
+		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"sharp_tower_four_one"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"1000"
+		// End of BuildingHelper info
+
+		"AbilityCastPoint"				"0.0"
+		"MaxLevel"						"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities.lua"
+				"Function"				"UpgradeBuilding"
+				"LumberCost"			"20"
+				"Building"				"sharp_tower_four_one"
+			}
+		}
+	}
+
+	"upgrade_sharp_four_two"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"build_sharp_tower"
+		"AbilityCastAnimation"			"ACT_DOTA_DISABLED"
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"2" // this is (3x64) by (3x64) units, so 9 squares.
+		"BuildTime"						"2.0"
+		"AbilityCastRange"				"100"
+		"UpdateHealth"					"1" //bool
+		"Scale"							"1" //bool
+		"MaxScale"						"1"
+		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
+		//"CancelsBuildingGhost"			"0" //bool
+		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
+		"UnitName"						"sharp_tower_four_two"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"1000"
+		// End of BuildingHelper info
+
+		"AbilityCastPoint"				"0.0"
+		"MaxLevel"						"1"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"			"scripts/vscripts/abilities.lua"
+				"Function"				"UpgradeBuilding"
+				"LumberCost"			"20"
+				"Building"				"sharp_tower_four_two"
 			}
 		}
 	}

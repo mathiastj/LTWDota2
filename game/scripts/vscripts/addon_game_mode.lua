@@ -114,7 +114,8 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_golem", context)
 	PrecacheUnitByNameSync("npc_boss_one", context)
 	PrecacheUnitByNameSync("arrow_tower_four_two", context)
-	
+	PrecacheUnitByNameSync("npc_dota_hero_shredder", context)
+	PrecacheUnitByNameSync("sharp_tower_two", context)
 	
 
 	PrecacheUnitByNameSync("npc_barracks", context) -- Building that spawns units

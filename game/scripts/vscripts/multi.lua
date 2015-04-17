@@ -49,6 +49,7 @@ function CMultiteamExampleGameMode:InitMulti()
 
 	self:GatherValidTeams()
 
+	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CMultiteamExampleGameMode, 'OnGameRulesStateChange'), self)
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 ) 
 end
 
@@ -111,7 +112,8 @@ function CMultiteamExampleGameMode:GetTeamReassignmentForPlayer( playerID )
 	-- If the number of players per team doesn't divide evenly (ie. 10 players on 4 teams => 2.5 players per team)
 	-- Then this floor will round that down to 2 players per team
 	-- If you want to limit the number of players per team, you could just set this to eg. 1
-	local playersPerTeam = math.floor( DOTA_MAX_TEAM_PLAYERS / #self.m_GatheredShuffledTeams )
+	local playersPerTeam = 1
+	--math.floor( DOTA_MAX_TEAM_PLAYERS / #self.m_GatheredShuffledTeams )
 	print( "playersPerTeam = " .. playersPerTeam )
 
 	local teamIndexForPlayer = math.floor( self.m_NumAssignedPlayers / playersPerTeam )

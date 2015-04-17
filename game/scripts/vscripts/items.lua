@@ -7,30 +7,36 @@ function send_unit( event )
 	local playerID = buyer:GetPlayerID() 
 	local team = PlayerResource:GetTeam(playerID)
 	local unit = event.Creep
+	local nums = 3
+	local spawnedUnits = {}
 
 	print("unit: " .. unit)
 
-
+	if(string.find(unit, "boss")) then
+		nums = 1
+	end
 
 	if (team == DOTA_TEAM_GOODGUYS) then
-		local teleport = Entities:FindByName( nil, "player2Teleport"):GetAbsOrigin() + Vector(RandomInt(-200, 200),0,0)
-		local spawnedUnit = CreateUnitByName(unit, teleport, true, buyer, buyer, DOTA_TEAM_NEUTRALS)
+		local teleport = Entities:FindByName( nil, "player2Teleport"):GetAbsOrigin()
 		local waypoint = Entities:FindByName( nil, "player2Waypoint"):GetAbsOrigin()
-		
-
-		Timers:CreateTimer(0.06, function()
-			spawnedUnit:MoveToPosition(waypoint)
+		for i = 1, nums do
+			spawnedUnits[i] = CreateUnitByName(unit, teleport  + Vector(RandomInt(-200, 200),0,0), true, buyer, buyer, DOTA_TEAM_NEUTRALS)
+		end
+		Timers:CreateTimer(0.18, function()
+			for i = 1, nums do
+				spawnedUnits[i]:MoveToPosition(waypoint)
+			end		
 		end)
 	else 
-		local teleport = Entities:FindByName( nil, "player1Teleport"):GetAbsOrigin() + Vector(RandomInt(-200, 200),0,0)
-		local spawnedUnit = CreateUnitByName(unit, teleport, true, buyer, buyer, DOTA_TEAM_NEUTRALS)
+		local teleport = Entities:FindByName( nil, "player1Teleport"):GetAbsOrigin()
 		local waypoint = Entities:FindByName( nil, "player1Waypoint"):GetAbsOrigin()
-		spawnedUnit:SetHullRadius(18)
-
-		
-
-		Timers:CreateTimer(0.06, function()
-			spawnedUnit:MoveToPosition(waypoint)
+		for i = 1, nums do
+			spawnedUnits[i] = CreateUnitByName(unit, teleport  + Vector(RandomInt(-200, 200),0,0), true, buyer, buyer, DOTA_TEAM_NEUTRALS)
+		end
+		Timers:CreateTimer(0.18, function()
+			for i = 1, nums do
+				spawnedUnits[i]:MoveToPosition(waypoint)
+			end		
 		end)
 	end
 
