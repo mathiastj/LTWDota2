@@ -141,4 +141,5 @@ function Activate()
 	GameRules.Multi:InitMulti()
 	GameRules.UnitKV = LoadKeyValues("scripts/npc/npc_units_custom.txt")
 	GameRules.AbilityKV = LoadKeyValues("scripts/npc/npc_abilities_custom.txt")
+	GameRules.ItemKV = LoadKeyValues("scripts/npc/npc_items_custom.txt")
 end

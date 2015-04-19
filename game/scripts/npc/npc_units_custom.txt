@@ -976,7 +976,7 @@
 		
 		"Ability1"					"upgrade_arrow_four_two"			// Ability 1.
 		"Ability2"					"sell_builing"			// Ability 2.
-		"Ability3"					""			// Ability 3.
+		"Ability3"					"ability_prevent_attack_flying"			// Ability 3.
 		"Ability4"					""			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
@@ -1099,7 +1099,7 @@
 		//----------------------------------------------------------------
 		
 		"Ability1"					"sell_builing"			// Ability 1.
-		"Ability2"					""			// Ability 2.
+		"Ability2"					"ability_prevent_attack_flying"			// Ability 2.
 		"Ability3"					""			// Ability 3.
 		"Ability4"					""			// Ability 4.
 		"Ability5"					""			// Ability 5.
@@ -1825,8 +1825,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"1"			// Gold earned min.
+		"BountyGoldMax"				"1"			// Gold earned max.
 
 		"Income"					"1"		
 
@@ -1892,8 +1892,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"2"			// Gold earned min.
+		"BountyGoldMax"				"2"			// Gold earned max.
 		"Income"					"2"		
 
 		// Bounds
@@ -1959,8 +1959,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"4"			// Gold earned min.
+		"BountyGoldMax"				"4"			// Gold earned max.
 		"Income"					"4"	
 
 		// Bounds
@@ -2026,8 +2026,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"6"			// Gold earned min.
+		"BountyGoldMax"				"6"			// Gold earned max.
 		"Income"					"7"	
 
 		// Bounds
@@ -2091,8 +2091,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"8"			// Gold earned min.
+		"BountyGoldMax"				"8"			// Gold earned max.
 		"Income"					"9"	
 
 		// Bounds
@@ -2157,8 +2157,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"10"			// Gold earned min.
+		"BountyGoldMax"				"10"			// Gold earned max.
 		"Income"					"12"	
 
 		// Bounds
@@ -2224,8 +2224,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"12"			// Gold earned min.
+		"BountyGoldMax"				"12"			// Gold earned max.
 		"Income"					"14"	
 
 		// Bounds
@@ -2290,8 +2290,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"15"			// Gold earned min.
+		"BountyGoldMax"				"15"			// Gold earned max.
 		"Income"					"20"	
 
 		// Bounds
@@ -2357,8 +2357,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"20"			// Gold earned min.
+		"BountyGoldMax"				"20"			// Gold earned max.
 		"Income"					"22"	
 
 		// Bounds
@@ -2369,7 +2369,7 @@
 		// Movement
 		//----------------------------------------------------------------
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_FLY"			// Type of locomotion - ground, air
-		"MovementSpeed"				"300"		// Speed
+		"MovementSpeed"				"200"		// Speed
 		"MovementTurnRate"			"1.0"		// Turning rate.
 
 		// Status
@@ -2425,8 +2425,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"25"			// Gold earned min.
+		"BountyGoldMax"				"25"			// Gold earned max.
 		"Income"					"37"	
 
 		// Bounds
@@ -2492,8 +2492,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"38"			// Gold earned min.
+		"BountyGoldMax"				"38"			// Gold earned max.
 		"Income"					"38"	
 
 		// Bounds
@@ -2559,8 +2559,8 @@
 		// Bounty
 		//----------------------------------------------------------------
 		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
+		"BountyGoldMin"				"75"			// Gold earned min.
+		"BountyGoldMax"				"75"			// Gold earned max.
 		"Income"					"100"	
 
 		// Bounds

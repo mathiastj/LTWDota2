@@ -170,3 +170,37 @@ function UpgradeBuilding( keys )
 	--FireGameEvent('cgm_player_lumber_changed', { player_ID = pID, lumber = player.lumber })
 end
 
+function CheckFlyingAttack( event )
+	local target = event.target -- The target of the attack
+	local attacker = event.attacker
+	local newTargets = Entities:FindAllInSphere(attacker:GetAbsOrigin(), attacker:GetAttackRange())
+
+	if target and target:GetName() ~= "" and target:HasFlyMovementCapability() then
+		if not attacker:HasAbility("ability_attack_flying") then
+
+			-- Send a move-to-target order.
+			-- Could also be a move-aggresive/swap target so it still attacks other valid targets
+			ExecuteOrderFromTable({ UnitIndex = attacker:GetEntityIndex(), 
+									OrderType = DOTA_UNIT_ORDER_STOP, 
+									TargetIndex = target:GetEntityIndex(), 
+									Position = target:GetAbsOrigin(), 
+									Queue = false
+								}) 
+		end
+		for i = 1, #newTargets do
+			if newTargets[i] then
+				local team = newTargets[i]:GetTeam()
+				if team == DOTA_TEAM_NEUTRALS then
+					local isCreature = newTargets[i]:IsCreature()
+					if isCreature ~= nil then
+						if not newTargets[i]:HasFlyMovementCapability() then
+							attacker:MoveToTargetToAttack(newTargets[i])
+							return
+						end
+					end
+				end
+			end
+		end	
+	end
+end
+

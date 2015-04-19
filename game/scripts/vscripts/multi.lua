@@ -62,7 +62,7 @@ function CMultiteamExampleGameMode:OnGameRulesStateChange()
 	print( "OnGameRulesStateChange: " .. nNewState )
 
 	if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
-		ShowGenericPopup( "#multiteam_instructions_title", "#multiteam_instructions_body", tostring(self.TEAM_KILLS_TO_WIN), "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
+		--ShowGenericPopup( "#multiteam_instructions_title", "#multiteam_instructions_body", tostring(self.TEAM_KILLS_TO_WIN), "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
 	end
 
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
@@ -165,7 +165,7 @@ function CMultiteamExampleGameMode:BroadcastPlayerTeamAssignments()
 		local nTeamID = PlayerResource:GetTeam( nPlayerID )
 		if nTeamID ~= DOTA_TEAM_NOTEAM then
 			print( "nTeamID = "..nTeamID )
-			GameRules:SendCustomMessage( "#TeamAssignmentMessage", nPlayerID, -1 )
+			--GameRules:SendCustomMessage( "#TeamAssignmentMessage", nPlayerID, -1 )
 		end
 	end
 end
@@ -187,6 +187,10 @@ function CMultiteamExampleGameMode:UpdateScoreboard()
 
 
 	UTIL_ResetMessageTextAll()
+	UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
+	UTIL_MessageTextAll( "#ScoreboardBreaker", 255, 255, 255, 255 )
 	UTIL_MessageTextAll( "#ScoreboardTitle", 255, 255, 255, 255 )
 	UTIL_MessageTextAll( "#ScoreboardSeparator", 255, 255, 255, 255 )
 	for _, t in pairs( sortedTeams ) do

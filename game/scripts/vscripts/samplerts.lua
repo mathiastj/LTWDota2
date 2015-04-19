@@ -4,7 +4,7 @@ ENABLE_HERO_RESPAWN = true              -- Should the heroes automatically respa
 UNIVERSAL_SHOP_MODE = true              -- Should the main shop contain Secret Shop items as well as regular items
 ALLOW_SAME_HERO_SELECTION = true        -- Should we let people select the same hero as each other
 
-HERO_SELECTION_TIME = 1.0              -- How long should we let people select their hero?
+HERO_SELECTION_TIME = 0.0              -- How long should we let people select their hero?
 PRE_GAME_TIME = 0.0                    -- How long after people select their heroes should the horn blow and the game start?
 POST_GAME_TIME = 60.0                   -- How long should we let people look at the scoreboard before closing the server automatically?
 TREE_REGROW_TIME = 60.0                 -- How long should it take individual trees to respawn after being cut down/destroyed?
@@ -29,14 +29,14 @@ DISABLE_FOG_OF_WAR_ENTIRELY = true      -- Should we disable fog of war entirely
 USE_STANDARD_HERO_GOLD_BOUNTY = true    -- Should we give gold for hero kills the same as in Dota, or allow those values to be changed?
 
 USE_CUSTOM_TOP_BAR_VALUES = true        -- Should we do customized top bar values or use the default kill count per team?
-TOP_BAR_VISIBLE = true                  -- Should we display the top bar score/count at all?
-SHOW_KILLS_ON_TOPBAR = true             -- Should we display kills only on the top bar? (No denies, suicides, kills by neutrals)  Requires USE_CUSTOM_TOP_BAR_VALUES
+TOP_BAR_VISIBLE = false                  -- Should we display the top bar score/count at all?
+SHOW_KILLS_ON_TOPBAR = false             -- Should we display kills only on the top bar? (No denies, suicides, kills by neutrals)  Requires USE_CUSTOM_TOP_BAR_VALUES
 
 ENABLE_TOWER_BACKDOOR_PROTECTION = false  -- Should we enable backdoor protection for our towers?
 REMOVE_ILLUSIONS_ON_DEATH = false       -- Should we remove all illusions if the main hero dies?
 DISABLE_GOLD_SOUNDS = false             -- Should we disable the gold sound when players get gold?
 
-END_GAME_ON_KILLS = true                -- Should the game end after a certain number of kills?
+END_GAME_ON_KILLS = false                -- Should the game end after a certain number of kills?
 KILLS_TO_END_GAME_FOR_TEAM = 50         -- How many kills for a team should signify an end of game?
 
 USE_CUSTOM_HERO_LEVELS = true           -- Should we allow heroes to have custom levels?
@@ -119,8 +119,8 @@ function SampleRTS:OnHeroInGame(hero)
 		-- At this point a player now has a hero spawned in your map.
 		
 		-- Note: ColorIt is a function in util.lua.
-	    local firstLine = ColorIt("Welcome to ", "green") .. ColorIt("SampleRTS! ", "magenta") .. ColorIt("v0.1", "blue");
-	    local secondLine = ColorIt("Developer: ", "green") .. ColorIt("XXX", "orange")
+	    local firstLine = ColorIt("Welcome to ", "green") .. ColorIt("Line Tower Wars! ", "magenta") .. ColorIt("v0.1", "blue");
+	    local secondLine = ColorIt("Developer: ", "green") .. ColorIt("T!", "orange")
 		-- Send the first greeting in 4 secs.
 		Timers:CreateTimer(4, function()
 	        GameRules:SendCustomMessage(firstLine, 0, 0)
@@ -149,7 +149,9 @@ function SampleRTS:OnHeroInGame(hero)
     ShowGenericPopupToPlayer(hero.player, "#samplerts_instructions_title", "#samplerts_instructions_body", "", "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
 
 	-- This line for example will set the starting gold of every hero to 500 unreliable gold
-	hero:SetGold(40, false)
+	hero:SetGold(0, false)
+	--Timers:CreateTimer(10, function() hero:SetGold(40, false) return end)
+	
 
 	-- These lines will create an item and add it to the player, effectively ensuring they start with the item
 	--local item = CreateItem("item_example_item", hero, hero)

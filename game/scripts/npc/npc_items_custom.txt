@@ -221,16 +221,19 @@
 		"ItemCost"						"5"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"15"
+		"ItemStockInitial"				"0"
+		"ItemStockTime"					"5.0"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -239,6 +242,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_sheep"
+				"Item"					"item_summon_sheep"
 			}
 
 		}
@@ -248,7 +252,7 @@
 		// General
 		//-------------------------------------------------------------------------------------------------------------
 		"ID"							"1054"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"AbilityBehavior"				"DOTA_ABILITY_PASSIVE"
 		"BaseClass"						"item_datadriven"
 		"AbilityTextureName"			"item_example_item"
 		
@@ -258,16 +262,21 @@
 		"ItemCost"						"10"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"15"
+		"ItemStockInitial"				"0"
+		"ItemStockTime"					"10.0"
+		"ItemRequiresCharges" 			"1"
+
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		//"ItemCastOnPickup"				"1"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -276,6 +285,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_wolf"
+				"Item"					"item_summon_wolf"
 			}
 
 		}
@@ -295,16 +305,19 @@
 		"ItemCost"						"22"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"32"
+		"ItemStockInitial"				"0"
+		"ItemStockTime"					"10.0"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -313,6 +326,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_skeleton"
+				"Item"					"item_summon_skeleton"
 			}
 
 		}
@@ -332,16 +346,19 @@
 		"ItemCost"						"40"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"32"
+		"ItemStockInitial"				"0"
+		"ItemStockTime"					"15.0"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -350,6 +367,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_acolyte"
+				"Item"					"item_summon_acolyte"
 			}
 
 		}
@@ -369,16 +387,16 @@
 		"ItemCost"						"60"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -387,6 +405,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_treant"
+				"Item"					"item_summon_treant"
 			}
 
 		}
@@ -406,16 +425,16 @@
 		"ItemCost"						"75"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -424,6 +443,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_swordsman"
+				"Item"					"item_summon_swordsman"
 			}
 
 		}
@@ -443,16 +463,16 @@
 		"ItemCost"						"100"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemRequiresCharges" 			"1"
 
-		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -461,6 +481,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_grunt"
+				"Item"					"item_summon_grunt"
 			}
 
 		}
@@ -480,16 +501,16 @@
 		"ItemCost"						"160"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -498,6 +519,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_temptress"
+				"Item"					"item_summon_temptress"
 			}
 
 		}
@@ -517,16 +539,19 @@
 		"ItemCost"						"200"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"10"
+		"ItemStockInitial"				"0"
+		"ItemStockTime"					"20.0"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -535,6 +560,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_shade"
+				"Item"					"item_summon_shade"
 			}
 
 		}
@@ -554,16 +580,16 @@
 		"ItemCost"						"350"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -572,6 +598,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_golem"
+				"Item"					"item_summon_golem"
 			}
 
 		}
@@ -591,16 +618,19 @@
 		"ItemCost"						"750"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"10"
+		"ItemStockInitial"				"0"
+		"ItemStockTime"					"20.0"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -609,6 +639,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_demolition"
+				"Item"					"item_summon_demolition"
 			}
 
 		}
@@ -628,16 +659,19 @@
 		"ItemCost"						"1000"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
-		"ItemStackable"					"1"
-		"ItemKillable"					"1"
+		"ItemStackable"					"0"
+		"ItemKillable"					"0"
 		"ItemPurchasable"				"1"
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"5"
+		"ItemStockInitial"				"0"
+		"ItemStockTime"					"30.0"
+		"ItemRequiresCharges" 			"1"
 
 		
-		"ItemCastOnPickup"				"1"
-		"OnSpellStart"
+		"OnEquip"
 		{
 			"SpendCharge"
 			{}
@@ -646,6 +680,7 @@
 				"ScriptFile"			"scripts/vscripts/items.lua"
 				"Function"				"send_unit"
 				"Creep"					"npc_boss_one"
+				"Item"					"item_summon_boss_one"
 			}
 
 		}

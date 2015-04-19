@@ -28,6 +28,31 @@
     	}
   	}
 
+	// By default, any unit can attack everything
+	// This disallows attacking air units by stopping their attacks before they go off
+	"ability_prevent_attack_flying"
+	{
+		"BaseClass"             		"ability_datadriven"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+	
+		"Modifiers"
+		{
+			"modifier_prevent_attack_flying"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"OnAttackStart"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/abilities.lua"
+						"Function"		"CheckFlyingAttack"
+					}
+				}
+			}
+		}
+	}
+
 	"build_dark_tower"
 	{
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
