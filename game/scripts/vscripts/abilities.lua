@@ -175,7 +175,11 @@ end
 function CheckFlyingAttack( event )
 	local target = event.target -- The target of the attack
 	local attacker = event.attacker
-	local newTargets = Entities:FindAllInSphere(attacker:GetAbsOrigin(), attacker:GetAttackRange())
+	local range = attacker:GetAttackRange()
+	local maxTargets = 1
+	local count = 0
+	local units = FindUnitsInRadius(target:GetTeam(), attacker:GetOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false)
+	--local newTargets = Entities:FindAllInSphere(attacker:GetAbsOrigin(), attacker:GetAttackRange())
 
 	if target and target:GetName() ~= "" and target:HasFlyMovementCapability() then
 		if not attacker:HasAbility("ability_attack_flying") then
@@ -189,20 +193,31 @@ function CheckFlyingAttack( event )
 									Queue = false
 								}) 
 		end
-		for i = 1, #newTargets do
-			if newTargets[i] then
-				local team = newTargets[i]:GetTeam()
-				if team == DOTA_TEAM_NEUTRALS then
-					local isCreature = newTargets[i]:IsCreature()
-					if isCreature ~= nil then
-						if not newTargets[i]:HasFlyMovementCapability() then
-							attacker:MoveToTargetToAttack(newTargets[i])
-							return
-						end
-					end
-				end
-			end
-		end	
+
+	    for _, unit in pairs(units) do
+	        if unit ~= target and not unit:HasFlyMovementCapability() then
+	            attacker:PerformAttack(unit, false, false, true, false)
+	            count = count + 1
+	            if count >= maxTargets then
+	                break
+	            end
+	        end
+	    end
+
+		-- for i = 1, #newTargets do
+		-- 	if newTargets[i] then
+		-- 		local team = newTargets[i]:GetTeam()
+		-- 		if team == DOTA_TEAM_NEUTRALS then
+		-- 			local isCreature = newTargets[i]:IsCreature()
+		-- 			if isCreature ~= nil then
+		-- 				if not newTargets[i]:HasFlyMovementCapability() then
+		-- 					attacker:MoveToTargetToAttack(newTargets[i])
+		-- 					return
+		-- 				end
+		-- 			end
+		-- 		end
+		-- 	end
+		-- end	
 	end
 end
 
