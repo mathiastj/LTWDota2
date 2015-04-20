@@ -179,13 +179,11 @@ function CheckFlyingAttack( event )
 	local maxTargets = 1
 	local count = 0
 	local units = FindUnitsInRadius(target:GetTeam(), attacker:GetOrigin(), nil, range, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_BASIC, DOTA_UNIT_TARGET_FLAG_NONE, FIND_CLOSEST, false)
-	--local newTargets = Entities:FindAllInSphere(attacker:GetAbsOrigin(), attacker:GetAttackRange())
-
+	
 	if target and target:GetName() ~= "" and target:HasFlyMovementCapability() then
 		if not attacker:HasAbility("ability_attack_flying") then
 
-			-- Send a move-to-target order.
-			-- Could also be a move-aggresive/swap target so it still attacks other valid targets
+			-- Send a stop order.
 			ExecuteOrderFromTable({ UnitIndex = attacker:GetEntityIndex(), 
 									OrderType = DOTA_UNIT_ORDER_STOP, 
 									TargetIndex = target:GetEntityIndex(), 
@@ -194,30 +192,16 @@ function CheckFlyingAttack( event )
 								}) 
 		end
 
+		-- Find a valid target and attack it
 	    for _, unit in pairs(units) do
 	        if unit ~= target and not unit:HasFlyMovementCapability() then
-	            attacker:PerformAttack(unit, false, false, true, false)
+	            attacker:PerformAttack(unit, true, true, false, false)
 	            count = count + 1
 	            if count >= maxTargets then
-	                break
+	                return
 	            end
 	        end
 	    end
-
-		-- for i = 1, #newTargets do
-		-- 	if newTargets[i] then
-		-- 		local team = newTargets[i]:GetTeam()
-		-- 		if team == DOTA_TEAM_NEUTRALS then
-		-- 			local isCreature = newTargets[i]:IsCreature()
-		-- 			if isCreature ~= nil then
-		-- 				if not newTargets[i]:HasFlyMovementCapability() then
-		-- 					attacker:MoveToTargetToAttack(newTargets[i])
-		-- 					return
-		-- 				end
-		-- 			end
-		-- 		end
-		-- 	end
-		-- end	
 	end
 end
 

@@ -38,17 +38,15 @@ function LTW:InitLTW()
 	BlockSpawns()
 
 	GameRules:SetCustomGameEndDelay( 0 )
+	GameRules:GetGameModeEntity():SetHUDVisible(9, false)  -- Disable courier hud. Is replaced by lumber count
+	GameRules:GetGameModeEntity():SetHUDVisible(12, false)	-- Disable recommended items
 	
 
 	ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(LTW, 'OnGameRulesStateChange'), self)
 	ListenToGameEvent("entity_killed", Dynamic_Wrap(LTW, 'On_entity_killed'), self)
 
 
-
-
 	self:CreateQuest()
-
-	self:InitAntiCheat()
 
 	print("LTW INITED")	
 end
@@ -144,6 +142,7 @@ function LTW:OnGameRulesStateChange(keys)
 	local newState = GameRules:State_Get()
 
 	if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+		self:InitAntiCheat()
 		self.secsUntilIncome = self.incomeTimer
 		self._entKillCountSubquest:SetTextReplaceValue( QUEST_TEXT_REPLACE_VALUE_CURRENT_VALUE, self.secsUntilIncome )
 		Timers:CreateTimer(10, function() 

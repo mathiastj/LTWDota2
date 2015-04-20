@@ -722,8 +722,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
-		"StatusHealthRegen"			"0"			// Health regeneration rate.
+		"StatusHealth"				"25"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		"StatusMana"				"0"			// Base mana.
 		"StatusManaRegen"			"0"			// Mana regeneration rate.
 
@@ -838,7 +838,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"35"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -951,7 +952,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"75"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -1014,7 +1016,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"75"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -1076,7 +1079,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"250"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -1138,7 +1142,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"250"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -1226,10 +1231,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
-		"StatusHealthRegen"			"0"			// Health regeneration rate.
-		"StatusMana"				"0"			// Base mana.
-		"StatusManaRegen"			"0"			// Mana regeneration rate.
+		"StatusHealth"				"25"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 
 		// Team
 		//----------------------------------------------------------------
@@ -1349,7 +1352,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"35"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -1456,7 +1460,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"75"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -1516,7 +1521,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"75"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -1623,7 +1629,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"250"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -1729,7 +1736,8 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"				"1000"			// Base health.
+		"StatusHealth"				"250"			// Base health.
+		"StatusHealthRegen"			"1"			// Health regeneration rate.
 		
 		// Vision
 		//----------------------------------------------------------------
@@ -2531,6 +2539,7 @@
 		//
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/creeps/item_creeps/i_creep_necro_warrior/necro_warrior.vmdl"	// Model.
+		"ModelScale"				"0.6"
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
 		"Level"						"0"
 		"UnitLabel"					"healing_ward"
@@ -2549,7 +2558,14 @@
 
 		// Attack
 		//----------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"			// Type of attack - melee, ranged, etc.
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackDamageMin"			"4.0"
+		"AttackDamageMax"			"6.0"
+		"AttackRate"				"1"
+		"AttackAnimationPoint"		"0.5"
+		"AttackAcquisitionRange"	"500"
+		"AttackRange"				"90"
 
 
 		// Attributes

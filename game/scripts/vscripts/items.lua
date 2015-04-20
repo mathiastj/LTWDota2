@@ -30,30 +30,25 @@ function send_unit( event )
 	end
 
 	if (team == DOTA_TEAM_GOODGUYS) then
-		local teleport = Entities:FindByName( nil, "player2Teleport"):GetAbsOrigin()
-		local waypoint = Entities:FindByName( nil, "player2Waypoint"):GetAbsOrigin()
-		for i = 1, nums do
-			spawnedUnits[i] = CreateUnitByName(unit, teleport + Vector(RandomInt(-400, 400),0,0), true, buyer, buyer, DOTA_TEAM_NEUTRALS)
-			spawnedUnits[i].team = team
-		end
-		Timers:CreateTimer(0.18, function()
-			for i = 1, nums do
-				spawnedUnits[i]:MoveToPosition(waypoint)
-			end		
-		end)
-	else 
-		local teleport = Entities:FindByName( nil, "player1Teleport"):GetAbsOrigin()
-		local waypoint = Entities:FindByName( nil, "player1Waypoint"):GetAbsOrigin()
+		teleport = Entities:FindByName( nil, "player2Teleport"):GetAbsOrigin()
+		waypoint = Entities:FindByName( nil, "player2Waypoint"):GetAbsOrigin()
+	else
+		teleport = Entities:FindByName( nil, "player1Teleport"):GetAbsOrigin()
+		waypoint = Entities:FindByName( nil, "player1Waypoint"):GetAbsOrigin()
+	end
 		for i = 1, nums do
 			spawnedUnits[i] = CreateUnitByName(unit, teleport  + Vector(RandomInt(-400, 400),0,0), true, buyer, buyer, DOTA_TEAM_NEUTRALS)
 			spawnedUnits[i].team = team
 		end
 		Timers:CreateTimer(0.18, function()
 			for i = 1, nums do
-				spawnedUnits[i]:MoveToPosition(waypoint)
+				if (string.find(unit, "demolition")) then
+					spawnedUnits[i]:MoveToPositionAggressive(waypoint)
+				else 
+					spawnedUnits[i]:MoveToPosition(waypoint)
+				end
 			end		
 		end)
-	end
 
 	local unit_table = GameRules.UnitKV[unit]
     local income = unit_table.Income

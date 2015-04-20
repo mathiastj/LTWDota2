@@ -5,7 +5,7 @@ UNIVERSAL_SHOP_MODE = true              -- Should the main shop contain Secret S
 ALLOW_SAME_HERO_SELECTION = true        -- Should we let people select the same hero as each other
 
 HERO_SELECTION_TIME = 0.0              -- How long should we let people select their hero?
-PRE_GAME_TIME = 0.0                    -- How long after people select their heroes should the horn blow and the game start?
+PRE_GAME_TIME = 15.0                    -- How long after people select their heroes should the horn blow and the game start?
 POST_GAME_TIME = 60.0                   -- How long should we let people look at the scoreboard before closing the server automatically?
 TREE_REGROW_TIME = 60.0                 -- How long should it take individual trees to respawn after being cut down/destroyed?
 
@@ -115,6 +115,8 @@ end
 function SampleRTS:OnHeroInGame(hero)
 	--print("[SAMPLERTS] Hero spawned in game for first time -- " .. hero:GetUnitName())
 
+	local player = hero:GetPlayerOwner()
+
 	if not self.greetPlayers then
 		-- At this point a player now has a hero spawned in your map.
 		
@@ -150,6 +152,8 @@ function SampleRTS:OnHeroInGame(hero)
 
 	-- This line for example will set the starting gold of every hero to 500 unreliable gold
 	hero:SetGold(0, false)
+	player.lumber = 0
+    FireGameEvent('cgm_player_lumber_changed', { player_ID = playerID, lumber = player.lumber })
 	--Timers:CreateTimer(10, function() hero:SetGold(40, false) return end)
 	
 
