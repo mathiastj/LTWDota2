@@ -802,13 +802,13 @@ function BuildingHelper:InitializeBuildingEntity(keys)
 		BuildingHelper:OpenSquares(unit.squaresOccupied, "vector")
 		--self:OpenSquares(unit.squaresOccupied "string")
 		if bForceKill then
-			if unit.blocker ~= nil then
-		        print("Removing blocker")
-		        DoEntFireByInstanceHandle(unit.blocker, "Disable", "1", 0, nil, nil)
-		        DoEntFireByInstanceHandle(unit.blocker, "Kill", "1", 1, nil, nil)
-		    end
 		    unit:ForceKill(true)
 		end
+		if unit.blocker ~= nil then
+	        print("Removing blocker")
+	        DoEntFireByInstanceHandle(unit.blocker, "Disable", "1", 0, nil, nil)
+	        DoEntFireByInstanceHandle(unit.blocker, "Kill", "1", 1, nil, nil)
+	    end
 	end
 
 	-- start cooldown if any

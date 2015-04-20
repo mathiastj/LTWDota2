@@ -1,7 +1,17 @@
 function playerOne(trigger)
 	--DeepPrintTable(trigger)
-
 	local unit = trigger.activator
+
+	--TODO: move variable up now
+
+	if (string.find(unit:GetUnitName(), "anti")) then
+		local teleport = Entities:FindByName( nil, "player1Teleport"):GetAbsOrigin()
+		FindClearSpaceForUnit(unit, teleport, false)
+
+		local waypoint = Entities:FindByName( nil, "player1Waypoint"):GetAbsOrigin()
+		unit:MoveToPosition(waypoint + Vector(RandomInt(-400, 400),0,0))
+		return
+	end
 
 	if(not string.find(unit:GetUnitName(), "hero")) then
 		print("is not hero")
@@ -26,8 +36,17 @@ end
 function playerTwo(trigger)
 	--DeepPrintTable(trigger)
 
-
+	--TODO: move variable up now
 	local unit = trigger.activator
+
+	if (string.find(unit:GetUnitName(), "anti")) then
+		local teleport = Entities:FindByName( nil, "player2Teleport"):GetAbsOrigin()
+		FindClearSpaceForUnit(unit, teleport, false)
+
+		local waypoint = Entities:FindByName( nil, "player2Waypoint"):GetAbsOrigin()
+		unit:MoveToPosition(waypoint + Vector(RandomInt(-400, 400),0,0))
+		return
+	end
 
 	if(not string.find(unit:GetUnitName(), "hero")) then
 		print("is not hero")

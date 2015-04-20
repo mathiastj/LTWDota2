@@ -121,6 +121,8 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_ogre_magi ", context)
 	PrecacheUnitByNameSync("sharp_tower_four_one", context)
 	PrecacheUnitByNameSync("sharp_tower_four_two", context)
+	PrecacheUnitByNameSync("npc_anti_cheat", context)
+	
 
 	
 	

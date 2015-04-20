@@ -977,7 +977,7 @@
 		"Ability1"					"upgrade_arrow_four_two"			// Ability 1.
 		"Ability2"					"sell_builing"			// Ability 2.
 		"Ability3"					"ability_prevent_attack_flying"			// Ability 3.
-		"Ability4"					""			// Ability 4.
+		"Ability4"					"tower_splash_damage_medium"			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
 		"Ability7"					""			// Ability 7 - Extra.
@@ -1100,7 +1100,7 @@
 		
 		"Ability1"					"sell_builing"			// Ability 1.
 		"Ability2"					"ability_prevent_attack_flying"			// Ability 2.
-		"Ability3"					""			// Ability 3.
+		"Ability3"					"tower_splash_damage_medium"			// Ability 3.
 		"Ability4"					""			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
@@ -1420,7 +1420,7 @@
 		
 		"Ability1"					"upgrade_sharp_four_one"			// Ability 1.
 		"Ability2"					"sell_builing"			// Ability 2.
-		"Ability3"					""			// Ability 3.
+		"Ability3"					"tower_splash_damage_medium"			// Ability 3.
 		"Ability4"					""			// Ability 4.
 		"Ability5"					""			// Ability 5.
 		"Ability6"					""			// Ability 6 - Extra.
@@ -1586,7 +1586,7 @@
 		//----------------------------------------------------------------
 		
 		"Ability1"					"sell_builing"			// Ability 1.
-		"Ability2"					""			// Ability 2.
+		"Ability2"					"tower_splash_damage_medium"			// Ability 2.
 		"Ability3"					""			// Ability 3.
 		"Ability4"					""			// Ability 4.
 		"Ability5"					""			// Ability 5.
@@ -1782,6 +1782,79 @@
 		    "model"     "models/items/blood_seeker/blood_covenant_shoulder/blood_covenant_shouldervmdl"
 		    "model"     "models/items/blood_seeker/blood_covenant_offhand/blood_covenant_offhand.vmdl"
 		    "particle"	"models/items/blood_seeker/blood_covenant_belt/blood_covenant_belt.vpcf"
+		}
+	}
+
+	"npc_anti_cheat"
+	{
+		// General
+		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
+		"Model"						"models/creeps/neutral_creeps/n_creep_kobold/kobold_b/n_creep_kobold_b.vmdl"	// Model.
+		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
+		"Level"						"4"
+		"UnitLabel"					"healing_ward"
+		
+		// Abilities
+		//----------------------------------------------------------------
+		
+		"Ability1"					"invulnerable"			// Ability 1.
+		"Ability2"					""			// Ability 2.
+
+
+		// Armor
+		//----------------------------------------------------------------
+		"ArmorPhysical"				"0"			// Physical protection.
+		"MagicalResistance"			"0"			// Magical protection.
+
+		// Attack
+		//----------------------------------------------------------------
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
+		"AttackDamageMin"			"9999.0"
+		"AttackDamageMax"			"9999.0"
+		"AttackRate"				"2"
+		"AttackAnimationPoint"		"0.5"
+		"AttackAcquisitionRange"	"500"
+		"AttackRange"				"90"
+
+
+		// Attributes
+		//----------------------------------------------------------------
+		"AttributePrimary"			"DOTA_ATTRIBUTE_STRENGTH"
+		"AttributeBaseStrength"		"0"			// Base strength
+		"AttributeStrengthGain"		"0"			// Strength bonus per level.
+		"AttributeBaseIntelligence"	"0"			// Base intelligence
+		"AttributeIntelligenceGain"	"0"			// Intelligence bonus per level.
+		"AttributeBaseAgility"		"0"			// Base agility
+		"AttributeAgilityGain"		"0"			// Agility bonus per level.
+
+		// Bounty
+		//----------------------------------------------------------------
+		"BountyXP"					"0"			// Experience earn.
+		"BountyGoldMin"				"0"			// Gold earned min.
+		"BountyGoldMax"				"0"			// Gold earned max.
+
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"			// Type of locomotion - ground, air
+		"MovementSpeed"				"512"		// Speed
+		"MovementTurnRate"			"1.0"		// Turning rate.
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"				"99999"			// Base health.
+		"StatusHealthRegen"			"0"			// Health regeneration rate.
+		"StatusMana"				"0"			// Base mana.
+		"StatusManaRegen"			"0"			// Mana regeneration rate.
+
+		"precache"
+		{
+		    "model"     "models/creeps/neutral_creeps/n_creep_kobold/kobold_b/n_creep_kobold_b.vmdl"
 		}
 	}
 

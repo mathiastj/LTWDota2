@@ -5,6 +5,113 @@
 	"Version"		"1"
 
 
+	"invulnerable"
+  	{
+    	// General
+    	//-------------------------------------------------------------------------------------------------------------
+    	"AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+    
+    	"BaseClass"             "ability_datadriven"
+    
+    	"Modifiers"
+    	{
+    	  	"modifier_unselectable"
+      		{
+        		"Passive" "1"
+        		"States"
+        		{
+          			"MODIFIER_STATE_INVULNERABLE"         "MODIFIER_STATE_VALUE_ENABLED"
+          			"MODIFIER_STATE_NO_UNIT_COLLISION"	  "MODIFIER_STATE_VALUE_ENABLED"
+	        	}	
+    	  	}
+    	}
+  	}
+
+	"tower_splash_damage_medium"
+	{
+		"AbilityBehavior"           	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"sven_great_cleave"
+		"MaxLevel"                      "1"
+
+		"AbilitySpecial"
+	    {
+	        "01"
+	        {
+	        	"var_type"					"FIELD_INTEGER"
+	        	"radius"					"150"
+	        }
+	    }
+
+	    "Modifiers"
+	    {
+	        "Orb_modifier"
+	        {
+	            "Passive"     "1"
+	            "IsHidden"    "1"
+	            "Orb"
+	            {
+	                "Priority"          "DOTA_ORB_PRIORITY_ABILITY"
+	                "ProjectileName"    "particles/units/heroes/hero_sven/sven_spell_storm_bolt.vpcf"
+	                "CastAttack"        "1"
+	            }
+	            "OnAttackLanded"
+	            {
+	            	"RunScript"
+					{
+						"ScriptFile"		"towers/splashdamage.lua"
+						"Function"			"SplashDamage"
+						"radius"			"%radius"
+						"Target"			"TARGET"
+					}
+	            }
+	        }
+	    }
+	}
+
+	"tower_splash_damage_large"
+	{
+		"AbilityBehavior"           	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"sven_great_cleave"
+		"MaxLevel"                      "1"
+
+		"AbilitySpecial"
+	    {
+	        "01"
+	        {
+	        	"var_type"					"FIELD_INTEGER"
+	        	"radius"					"300"
+	        }
+	    }
+
+	    "Modifiers"
+	    {
+	        "Orb_modifier"
+	        {
+	            "Passive"     "1"
+	            "IsHidden"    "1"
+	            "Orb"
+	            {
+	                "Priority"          "DOTA_ORB_PRIORITY_ABILITY"
+	                "ProjectileName"    "particles/units/heroes/hero_sven/sven_spell_storm_bolt.vpcf"
+	                "CastAttack"        "1"
+	            }
+	            "OnAttackLanded"
+	            {
+	            	"RunScript"
+					{
+						"ScriptFile"		"towers/splashdamage.lua"
+						"Function"			"SplashDamage"
+						"radius"			"%radius"
+						"Target"			"TARGET"
+					}
+	            }
+	        }
+	    }
+	}
+
+
 	"phased"
   	{
     	// General

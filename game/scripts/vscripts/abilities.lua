@@ -151,18 +151,20 @@ function UpgradeBuilding( keys )
 	unit:SetAbsOrigin(pos)
 	unit.squaresOccupied = squares
 	unit.ready = true
+	unit.isBuilding = true
+	unit.building = true
 
 	function unit:RemoveBuilding(bForceKill)
 		BuildingHelper:OpenSquares(self.squaresOccupied, "vector")
 		--self:OpenSquares(unit.squaresOccupied "string")
 		if bForceKill then
-		    if self.blocker ~= nil then
-		        print("Removing blocker")
-		        DoEntFireByInstanceHandle(self.blocker, "Disable", "1", 0, nil, nil)
-		        DoEntFireByInstanceHandle(self.blocker, "Kill", "1", 1, nil, nil)
-		    end
 		    self:RemoveSelf()
 		end
+	    if self.blocker ~= nil then
+	        print("Removing blocker")
+	        DoEntFireByInstanceHandle(self.blocker, "Disable", "1", 0, nil, nil)
+	        DoEntFireByInstanceHandle(self.blocker, "Kill", "1", 1, nil, nil)
+	    end
 	end
 	
 	--player.lumber = player.lumber - keys.LumberCost

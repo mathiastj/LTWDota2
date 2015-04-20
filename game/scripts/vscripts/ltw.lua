@@ -8,6 +8,16 @@ function LTW:InitLTW()
 
 	self.incomeTimer = 10
 
+	self.lastAntiCheatPos = {}
+	self.lastAntiCheatPos[1] = Vector(0,0,0)
+	self.lastAntiCheatPos[2] = Vector(0,0,0)
+
+	self.numAntiCheats = 2
+
+	self.waypoint = {}
+	self.waypoint[1] = Entities:FindByName( nil, "player1Waypoint"):GetAbsOrigin()
+	self.waypoint[2] = Entities:FindByName( nil, "player2Waypoint"):GetAbsOrigin()
+
 	self.lives = {}
 	for i = DOTA_TEAM_GOODGUYS, DOTA_TEAM_CUSTOM_8 do
     	self.lives[i] = 25
@@ -34,24 +44,73 @@ function LTW:InitLTW()
 	ListenToGameEvent("entity_killed", Dynamic_Wrap(LTW, 'On_entity_killed'), self)
 
 
+
+
 	self:CreateQuest()
 
-
+	self:InitAntiCheat()
 
 	print("LTW INITED")	
 end
 
 function LTW:On_entity_killed(data)
-  --print("[LTW] entity_killed")
+    print("[LTW] entity_killed")
   --PrintTable(data)
   	--DeepPrintTable(data)
   	local unit = EntIndexToHScript( data.entindex_killed )
   	local team = unit.team
+  		
+	if not BuildingHelper:IsBuilding(unit) then
+		self.units[team] = self.units[team] - 1
+	else 
+		unit:RemoveBuilding(false)
+	end
 
-  	self.units[team] = self.units[team] - 1
+  	--print("Units: " .. self.units[team] .. " for team: " .. team )
 
-  	print("Units: " .. self.units[team] .. " for team: " .. team )
+end
 
+function LTW:InitAntiCheat()
+	self.antiCheats = {}
+
+	local teleport = {}
+	teleport[1] = Entities:FindByName( nil, "player1Teleport"):GetAbsOrigin()
+	teleport[2] = Entities:FindByName( nil, "player2Teleport"):GetAbsOrigin()
+
+
+
+	for i = 1, self.numAntiCheats do
+		self.antiCheats[i] = CreateUnitByName("npc_anti_cheat", teleport[i] + Vector(RandomInt(-400, 400),0,0), true, buyer, buyer, DOTA_TEAM_NEUTRALS)
+	end		
+
+	Timers:CreateTimer(0.18, function()
+		for i = 1, self.numAntiCheats do
+			self.antiCheats[i]:MoveToPosition(self.waypoint[i])
+			self.lastAntiCheatPos[i] = self.antiCheats[i]:GetAbsOrigin()
+		end		
+	end)
+
+
+	GameRules:GetGameModeEntity():SetThink( "AntiCheatThink", self, 0 ) 
+end	
+
+function LTW:AntiCheatThink()
+	for i = 1, self.numAntiCheats do
+		self.antiCheats[i]:MoveToPosition(self.waypoint[i]) 
+	end
+	-- local currentPos = {}
+	-- for i = 1, GameRules.LTW.numAntiCheats do
+	-- 	currentPos[i] = self.antiCheats[i]:GetAbsOrigin()
+	-- 	if ((currentPos[i] - self.lastAntiCheatPos[i]):Length2D()) <= 50 then
+	-- 		self.antiCheats[i]:MoveToPositionAggressive(GameRules.LTW.waypoint[i])
+	-- 		print("Anti cheat: " .. i .. " going aggresive")
+	-- 		Timers:CreateTimer(2.5, function() self.antiCheats[i]:MoveToPosition(GameRules.LTW.waypoint[i]) 
+	-- 			print("Anti cheat: " .. i .. " going passive")
+	-- 			return 
+	-- 		end)
+	-- 	end
+	-- end	
+	return 1.5
 end
 
 
