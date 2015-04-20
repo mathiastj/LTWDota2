@@ -27,6 +27,77 @@
     	}
   	}
 
+	"neutral_evasion"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass" 					"ability_datadriven"
+		"AbilityTextureName"    		"axe_battle_hunger"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"dodge_chance"	"15"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_evasion"
+			{
+				"IsHidden"	"1"
+				"Passive"	"1"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_EVASION_CONSTANT"  "%dodge_chance"
+				}
+			}
+		}
+	}
+
+	"endurance_aura"
+	{
+		"BaseClass" 				"ability_datadriven"
+		"AbilityBehavior" 			"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"MaxLevel"					"1"
+		"AbilityTextureName"   		"endurance_aura"
+		"AbilityCastPoint"			"0"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"ms_bonus"				"15"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"affix_endurance_aura"
+			{
+				"Passive"				"1"
+				"IsHidden"				"1"
+				"Aura"        			"modifier_endurance_aura"
+        		"Aura_Radius" 			"900"
+        		"Aura_Teams"  			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+        		"Aura_Types" 			"DOTA_UNIT_TARGET_ALL"
+			}
+			"modifier_endurance_aura"
+			{
+				"IsBuff"				"1"
+				"EffectName"			"particles/units/heroes/hero_troll_warlord/troll_warlord_battletrance_buff_b.vpcf"
+				"EffectAttachType"		"follow_origin"
+				"Attributes"			"MODIFIER_ATTRIBUTE_MULTIPLE"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE_UNIQUE"				"%ms_bonus"
+				}
+			}
+		}
+	}
+
 	"tower_splash_damage_medium"
 	{
 		"AbilityBehavior"           	"DOTA_ABILITY_BEHAVIOR_PASSIVE"

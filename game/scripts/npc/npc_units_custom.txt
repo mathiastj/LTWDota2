@@ -2131,13 +2131,13 @@
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/heroes/furion/treant.vmdl"	// Model.
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
-		"Level"						"0"
+		"Level"						"4"
 		"UnitLabel"					"healing_ward"
 		
 		// Abilities
 		//----------------------------------------------------------------
 		
-		"Ability1"					""			// Ability 1.
+		"Ability1"					"neutral_evasion"			// Ability 1.
 		"Ability2"					""			// Ability 2.
 
 
@@ -2330,13 +2330,13 @@
 		"BaseClass"					"npc_dota_creature"	// Class of entity of link to.
 		"Model"						"models/creeps/neutral_creeps/n_creep_harpy_a/n_creep_harpy_a.vmdl"	// Model.
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
-		"Level"						"0"
+		"Level"						"4"
 		"UnitLabel"					"healing_ward"
 		
 		// Abilities
 		//----------------------------------------------------------------
 		
-		"Ability1"					""			// Ability 1.
+		"Ability1"					"endurance_aura"			// Ability 1.
 		"Ability2"					""			// Ability 2.
 
 
