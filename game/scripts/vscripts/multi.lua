@@ -16,16 +16,24 @@ function CMultiteamExampleGameMode:InitMulti()
 	print( "Multiteam Example addon is loaded." )
 
 	self.m_TeamColors = {}
-	self.m_TeamColors[DOTA_TEAM_GOODGUYS] = { 255, 0, 0 }
-	self.m_TeamColors[DOTA_TEAM_BADGUYS] = { 0, 255, 0 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_1] = { 0, 0, 255 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_2] = { 255, 128, 64 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_3] = { 255, 255, 0 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_4] = { 128, 255, 0 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_5] = { 128, 0, 255 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_6] = { 255, 0, 128 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_7] = { 0, 255, 255 }
-	self.m_TeamColors[DOTA_TEAM_CUSTOM_8] = { 255, 255, 255 }
+	self.m_TeamColors[DOTA_TEAM_GOODGUYS] = { 61, 210, 150 }	--		Teal
+	self.m_TeamColors[DOTA_TEAM_BADGUYS]  = { 243, 201, 9 }		--		Yellow
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_1] = { 197, 77, 168 }	--      Pink
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_2] = { 255, 108, 0 }		--		Orange
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_3] = { 52, 85, 255 }		--		Blue
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_4] = { 101, 212, 19 }	--		Green
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_5] = { 129, 83, 54 }		--		Brown
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_6] = { 27, 192, 216 }	--		Cyan
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_7] = { 199, 228, 13 }	--		Olive
+	self.m_TeamColors[DOTA_TEAM_CUSTOM_8] = { 140, 42, 244 }	--		Purple
+
+
+	for team = 0, (DOTA_TEAM_COUNT-1) do
+		color = self.m_TeamColors[ team ]
+		if color then
+			SetTeamCustomHealthbarColor( team, color[1], color[2], color[3] )
+		end
+	end
 
 	self.m_VictoryMessages = {}
 	self.m_VictoryMessages[DOTA_TEAM_GOODGUYS] = "#VictoryMessage_GoodGuys"
@@ -39,36 +47,11 @@ function CMultiteamExampleGameMode:InitMulti()
 	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_7] = "#VictoryMessage_Custom7"
 	self.m_VictoryMessages[DOTA_TEAM_CUSTOM_8] = "#VictoryMessage_Custom8"
 
-	self.m_GatheredShuffledTeams = {}
-	self.m_PlayerTeamAssignments = {}
-	self.m_NumAssignedPlayers = 0
+	self:GatherAndRegisterValidTeams()
 
-	self.TEAM_KILLS_TO_WIN = 15
 
 	---------------------------------------------------------------------------
-
-	self:GatherValidTeams()
-
-	ListenToGameEvent("game_rules_state_change", Dynamic_Wrap(CMultiteamExampleGameMode, 'OnGameRulesStateChange'), self)
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 ) 
-end
-
-
----------------------------------------------------------------------------
--- Game state change handler
----------------------------------------------------------------------------
-function CMultiteamExampleGameMode:OnGameRulesStateChange()
-	local nNewState = GameRules:State_Get()
-	print( "OnGameRulesStateChange: " .. nNewState )
-
-	if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
-		--ShowGenericPopup( "#multiteam_instructions_title", "#multiteam_instructions_body", tostring(self.TEAM_KILLS_TO_WIN), "", DOTA_SHOWGENERICPOPUP_TINT_SCREEN )
-	end
-
-	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-		GameRules:GetGameModeEntity():SetThink( "EnsurePlayersOnCorrectTeam", self, 0 )
-		GameRules:GetGameModeEntity():SetThink( "BroadcastPlayerTeamAssignments", self, 1 )
-	end
 end
 
 
@@ -85,61 +68,9 @@ end
 
 
 ---------------------------------------------------------------------------
--- Determine a good team assignment for the next player
----------------------------------------------------------------------------
-function CMultiteamExampleGameMode:GetTeamReassignmentForPlayer( playerID )
-	if #self.m_GatheredShuffledTeams == 0 then
-		return nil
-	end
-
-	if nil == PlayerResource:GetPlayer( playerID ) then
-		return nil -- no player yet
-	end
-	
-	-- see if we've already assigned the player	
-	local existingAssignment = self.m_PlayerTeamAssignments[ playerID ]
-	if existingAssignment ~= nil then
-		if existingAssignment == PlayerResource:GetTeam( playerID ) then
-			return nil -- already assigned to this team and they're still on it
-		else
-			return existingAssignment -- something else pushed them out of the desired team - set it back
-		end
-	end
-
-	-- haven't assigned this player to a team yet
-	print( "m_NumAssignedPlayers = " .. self.m_NumAssignedPlayers )
-	
-	-- If the number of players per team doesn't divide evenly (ie. 10 players on 4 teams => 2.5 players per team)
-	-- Then this floor will round that down to 2 players per team
-	-- If you want to limit the number of players per team, you could just set this to eg. 1
-	local playersPerTeam = 1
-	--math.floor( DOTA_MAX_TEAM_PLAYERS / #self.m_GatheredShuffledTeams )
-	print( "playersPerTeam = " .. playersPerTeam )
-
-	local teamIndexForPlayer = math.floor( self.m_NumAssignedPlayers / playersPerTeam )
-	print( "teamIndexForPlayer = " .. teamIndexForPlayer )
-
-	-- Then once we get to the 9th player from the case above, we need to wrap around and start assigning to the first team
-	if teamIndexForPlayer >= #self.m_GatheredShuffledTeams then
-		teamIndexForPlayer = teamIndexForPlayer - #self.m_GatheredShuffledTeams
-		print( "teamIndexForPlayer => " .. teamIndexForPlayer )
-	end
-	
-	teamAssignment = self.m_GatheredShuffledTeams[ 1 + teamIndexForPlayer ]
-	print( "teamAssignment = " .. teamAssignment )
-
-	self.m_PlayerTeamAssignments[ playerID ] = teamAssignment
-
-	self.m_NumAssignedPlayers = self.m_NumAssignedPlayers + 1
-
-	return teamAssignment
-end
-
-
----------------------------------------------------------------------------
 -- Put a label over a player's hero so people know who is on what team
 ---------------------------------------------------------------------------
-function CMultiteamExampleGameMode:MakeLabelForPlayer( nPlayerID )
+function CMultiteamExampleGameMode:UpdatePlayerColor( nPlayerID )
 	if not PlayerResource:HasSelectedHero( nPlayerID ) then
 		return
 	end
@@ -151,23 +82,7 @@ function CMultiteamExampleGameMode:MakeLabelForPlayer( nPlayerID )
 
 	local teamID = PlayerResource:GetTeam( nPlayerID )
 	local color = self:ColorForTeam( teamID )
-	hero:SetCustomHealthLabel( PlayerResource:GetPlayerName(nPlayerID), color[1], color[2], color[3] )
-end
-
-
----------------------------------------------------------------------------
--- Tell everyone the team assignments during hero selection
----------------------------------------------------------------------------
-function CMultiteamExampleGameMode:BroadcastPlayerTeamAssignments()
-	print( "BroadcastPlayerTeamAssignments" )
-	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
-		print( "nPlayerID = "..nPlayerID )
-		local nTeamID = PlayerResource:GetTeam( nPlayerID )
-		if nTeamID ~= DOTA_TEAM_NOTEAM then
-			print( "nTeamID = "..nTeamID )
-			--GameRules:SendCustomMessage( "#TeamAssignmentMessage", nPlayerID, -1 )
-		end
-	end
+	PlayerResource:SetCustomPlayerColor( nPlayerID, color[1], color[2], color[3] )
 end
 
 ---------------------------------------------------------------------------
@@ -228,7 +143,7 @@ end
 ---------------------------------------------------------------------------
 function CMultiteamExampleGameMode:OnThink()
 	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
-		self:MakeLabelForPlayer( nPlayerID )
+		self:UpdatePlayerColor( nPlayerID )
 	end
 	
 	self:UpdateScoreboard()
@@ -263,20 +178,29 @@ end
 ---------------------------------------------------------------------------
 -- Scan the map to see which teams have spawn points
 ---------------------------------------------------------------------------
-function CMultiteamExampleGameMode:GatherValidTeams()
---	print( "GatherValidTeams:" )
+function CMultiteamExampleGameMode:GatherAndRegisterValidTeams()
 
 	local foundTeams = {}
 	for _, playerStart in pairs( Entities:FindAllByClassname( "info_player_start_dota" ) ) do
 		foundTeams[  playerStart:GetTeam() ] = true
 	end
 
-	print( "GatherValidTeams - Found spawns for a total of " .. TableCount(foundTeams) .. " teams" )
+	local numTeams = TableCount(foundTeams)
+	print( "GatherValidTeams - Found spawns for a total of " .. numTeams .. " teams" )
 	
 	local foundTeamsList = {}
 	for t, _ in pairs( foundTeams ) do
 		table.insert( foundTeamsList, t )
 	end
+
+	if numTeams == 0 then
+		print( "GatherValidTeams - NO team spawns detected, defaulting to GOOD/BAD" )
+		table.insert( foundTeamsList, DOTA_TEAM_GOODGUYS )
+		table.insert( foundTeamsList, DOTA_TEAM_BADGUYS )
+		numTeams = 2
+	end
+
+	local maxPlayersPerValidTeam = math.floor( 10 / numTeams )
 
 	self.m_GatheredShuffledTeams = ShuffledList( foundTeamsList )
 
@@ -284,46 +208,32 @@ function CMultiteamExampleGameMode:GatherValidTeams()
 	for _, team in pairs( self.m_GatheredShuffledTeams ) do
 		print( " - " .. team .. " ( " .. GetTeamName( team ) .. " )" )
 	end
+
+	print( "Setting up teams:" )
+	for team = DOTA_TEAM_GOODGUYS, (DOTA_TEAM_COUNT-1) do
+		local maxPlayers = 0
+		if team == DOTA_TEAM_GOODGUYS then
+			maxPlayers = 1
+		elseif team == DOTA_TEAM_BADGUYS  then
+			maxPlayers = 1
+		else 
+			maxPlayers = 0
+		end
+		print( " - " .. team .. " ( " .. GetTeamName( team ) .. " ) -> max players = " .. tostring(maxPlayers) )
+		GameRules:SetCustomGameTeamMaxPlayers( team, maxPlayers )
+	end
 end
 
+function TableFindKey( table, val )
+	if table == nil then
+		print( "nil" )
+		return nil
+	end
 
----------------------------------------------------------------------------
--- Assign all real players to a team
----------------------------------------------------------------------------
-function CMultiteamExampleGameMode:EnsurePlayersOnCorrectTeam()
---	print( "Assigning players to teams..." )
-	for playerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
-		local teamReassignment = self:GetTeamReassignmentForPlayer( playerID )
-		if nil ~= teamReassignment then
-			print( " - Player " .. playerID .. " reassigned to team " .. teamReassignment )
-			PlayerResource:SetCustomTeamAssignment( playerID, teamReassignment )
+	for k, v in pairs( table ) do
+		if v == val then
+			return k
 		end
 	end
-	
-	return 1 -- Check again later in case more players spawn
-end
-
-
----------------------------------------------------------------------------
--- When a team gets credit for a kill, see if anyone won
----------------------------------------------------------------------------
-function CMultiteamExampleGameMode:OnTeamKillCredit( event )
---	print( "OnKillCredit" )
---	DeepPrint( event )
-	
-	local nKillerID = event.killer_userid
-	local nTeamID = event.teamnumber
-	local nTeamKills = event.herokills
-	local nKillsRemaining = self.TEAM_KILLS_TO_WIN - nTeamKills
-	
-	if nKillsRemaining <= 0 then
-		GameRules:SetCustomVictoryMessage( self.m_VictoryMessages[nTeamID] )
-		GameRules:SetGameWinner( nTeamID )
-	elseif nKillsRemaining == 1 then
-		ShowCustomHeaderMessage( "#OneKillRemainingMessage", nKillerID, -1, 5 )
-		EmitGlobalSound( "ui.npe_objective_complete" )
-	elseif nKillsRemaining < 5 then
-		ShowCustomHeaderMessage( "#KillsRemainingMessage", nKillerID, nKillsRemaining, 5 )
-		EmitGlobalSound( "ui.npe_objective_given" )
-	end
+	return nil
 end

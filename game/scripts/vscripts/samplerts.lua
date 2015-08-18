@@ -153,7 +153,8 @@ function SampleRTS:OnHeroInGame(hero)
 	-- This line for example will set the starting gold of every hero to 500 unreliable gold
 	hero:SetGold(0, false)
 	player.lumber = 0
-    FireGameEvent('cgm_player_lumber_changed', { player_ID = playerID, lumber = player.lumber })
+    --FireGameEvent('cgm_player_lumber_changed', { player_ID = playerID, lumber = player.lumber })
+    CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(player.lumber) })
 	--Timers:CreateTimer(10, function() hero:SetGold(40, false) return end)
 	
 
@@ -438,45 +439,48 @@ end
 
 -- An entity died
 function SampleRTS:OnEntityKilled( keys )
-	--print( '[SAMPLERTS] OnEntityKilled Called' )
-	--PrintTable( keys )
+-- 	--print( '[SAMPLERTS] OnEntityKilled Called' )
+-- 	--PrintTable( keys )
 
-	-- The Unit that was Killed
-	local killedUnit = EntIndexToHScript( keys.entindex_killed )
-	-- The Killing entity
-	local killerEntity = nil
+-- 	-- The Unit that was Killed
+-- 	local killedUnit = EntIndexToHScript( keys.entindex_killed )
+-- 	-- The Killing entity
+-- 	local killerEntity = nil
 
-	if keys.entindex_attacker ~= nil then
-		killerEntity = EntIndexToHScript( keys.entindex_attacker )
-	end
+-- 	if keys.entindex_attacker ~= nil then
+-- 		killerEntity = EntIndexToHScript( keys.entindex_attacker )
+-- 	end
 
-	if killedUnit:IsRealHero() then
-		--print ("KILLEDKILLER: " .. killedUnit:GetName() .. " -- " .. killerEntity:GetName())
-		if killedUnit:GetTeam() == DOTA_TEAM_BADGUYS and killerEntity:GetTeam() == DOTA_TEAM_GOODGUYS then
-			self.nRadiantKills = self.nRadiantKills + 1
-			if END_GAME_ON_KILLS and self.nRadiantKills >= KILLS_TO_END_GAME_FOR_TEAM then
-				GameRules:SetSafeToLeave( true )
-				GameRules:SetGameWinner( DOTA_TEAM_GOODGUYS )
-			end
-		elseif killedUnit:GetTeam() == DOTA_TEAM_GOODGUYS and killerEntity:GetTeam() == DOTA_TEAM_BADGUYS then
-			self.nDireKills = self.nDireKills + 1
-			if END_GAME_ON_KILLS and self.nDireKills >= KILLS_TO_END_GAME_FOR_TEAM then
-				GameRules:SetSafeToLeave( true )
-				GameRules:SetGameWinner( DOTA_TEAM_BADGUYS )
-			end
-		end
+-- 	if killedUnit:IsRealHero() then
+-- 		--print ("KILLEDKILLER: " .. killedUnit:GetName() .. " -- " .. killerEntity:GetName())
+-- 		if killedUnit:GetTeam() == DOTA_TEAM_BADGUYS and killerEntity:GetTeam() == DOTA_TEAM_GOODGUYS then
+-- 			self.nRadiantKills = self.nRadiantKills + 1
+-- 			if END_GAME_ON_KILLS and self.nRadiantKills >= KILLS_TO_END_GAME_FOR_TEAM then
+-- 				GameRules:SetSafeToLeave( true )
+-- 				GameRules:SetGameWinner( DOTA_TEAM_GOODGUYS )
+-- 			end
+-- 		elseif killedUnit:GetTeam() == DOTA_TEAM_GOODGUYS and killerEntity:GetTeam() == DOTA_TEAM_BADGUYS then
+-- 			self.nDireKills = self.nDireKills + 1
+-- 			if END_GAME_ON_KILLS and self.nDireKills >= KILLS_TO_END_GAME_FOR_TEAM then
+-- 				GameRules:SetSafeToLeave( true )
+-- 				GameRules:SetGameWinner( DOTA_TEAM_BADGUYS )
+-- 			end
+-- 		end
 
-		if SHOW_KILLS_ON_TOPBAR then
-			GameRules:GetGameModeEntity():SetTopBarTeamValue ( DOTA_TEAM_BADGUYS, self.nDireKills )
-			GameRules:GetGameModeEntity():SetTopBarTeamValue ( DOTA_TEAM_GOODGUYS, self.nRadiantKills )
-		end
-	end
-	-- Put code here to handle when an entity gets killed
-	-- START OF BH SNIPPET
-	if BuildingHelper:IsBuilding(killedUnit) then
-		killedUnit:RemoveBuilding(false)
-	end
-	-- END OF BH SNIPPET
+-- 		if SHOW_KILLS_ON_TOPBAR then
+-- 			GameRules:GetGameModeEntity():SetTopBarTeamValue ( DOTA_TEAM_BADGUYS, self.nDireKills )
+-- 			GameRules:GetGameModeEntity():SetTopBarTeamValue ( DOTA_TEAM_GOODGUYS, self.nRadiantKills )
+-- 		end
+-- 	end
+-- 	-- Put code here to handle when an entity gets killed
+-- 	-- START OF BH SNIPPET
+-- 	-- if BuildingHelper:IsBuilding(killedUnit) then
+-- 	-- 	killedUnit:RemoveBuilding(false)
+-- 	-- end
+-- 	if killedUnit.isBuilding then
+-- 		killedUnit:RemoveBuilding(true)
+-- 	end
+-- 	-- END OF BH SNIPPET
 end
 
 
@@ -541,6 +545,9 @@ function SampleRTS:InitSampleRTS()
 	--ListenToGameEvent('dota_combatlog', Dynamic_Wrap(SampleRTS, 'OnCombatLogEvent'), self)
 	--ListenToGameEvent('dota_player_killed', Dynamic_Wrap(SampleRTS, 'OnPlayerKilled'), self)
 	--ListenToGameEvent('player_team', Dynamic_Wrap(SampleRTS, 'OnPlayerTeam'), self)
+
+	CustomGameEventManager:RegisterListener( "building_helper_build_command", Dynamic_Wrap(BuildingHelper, "RegisterLeftClick"))
+	CustomGameEventManager:RegisterListener( "building_helper_cancel_command", Dynamic_Wrap(BuildingHelper, "RegisterRightClick"))
 
 
 
@@ -634,10 +641,6 @@ function SampleRTS:InitSampleRTS()
 
 	self.bSeenWaitForPlayers = false
 
-	-- BH Snippet
-	-- This can be called with an optional argument: nHalfMapLength (see readme)
-	BuildingHelper:Init()
-	--BuildingHelper:BlockRectangularArea(Vector(-192,-192,0), Vector(192,192,0))
 end
 
 mode = nil

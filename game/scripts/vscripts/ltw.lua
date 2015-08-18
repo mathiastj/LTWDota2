@@ -58,10 +58,21 @@ function LTW:On_entity_killed(data)
   	local unit = EntIndexToHScript( data.entindex_killed )
   	local team = unit.team
   		
-	if not BuildingHelper:IsBuilding(unit) then
-		self.units[team] = self.units[team] - 1
+	-- if not BuildingHelper:IsBuilding(unit) then
+	-- 	self.units[team] = self.units[team] - 1
+	-- else 
+	-- 	unit:RemoveBuilding(false)
+	-- end
+
+	if unit.isBuilding then
+		unit:RemoveBuilding(true)
+		unit.ground:RemoveSelf()
+		print("is building")
+	elseif unit.isGround then
+		print("remove ground")	
 	else 
-		unit:RemoveBuilding(false)
+		print("is not building")
+		self.units[team] = self.units[team] - 1
 	end
 
   	--print("Units: " .. self.units[team] .. " for team: " .. team )
@@ -212,10 +223,10 @@ function BlockSpawns()
 	bRP.x = -192 
 	bRP.y = -1792
 
-	BuildingHelper:BlockRectangularArea(topLeftPoint, tLP)
-	BuildingHelper:BlockRectangularArea(topRightPoint, tRP)
-	BuildingHelper:BlockRectangularArea(botLeftPoint, bLP)
-	BuildingHelper:BlockRectangularArea(botRightPoint, bRP)
+	-- BuildingHelper:BlockRectangularArea(topLeftPoint, tLP)
+	-- BuildingHelper:BlockRectangularArea(topRightPoint, tRP)
+	-- BuildingHelper:BlockRectangularArea(botLeftPoint, bLP)
+	-- BuildingHelper:BlockRectangularArea(botRightPoint, bRP)
 end
 
 

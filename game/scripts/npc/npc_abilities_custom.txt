@@ -5,6 +5,29 @@
 	"Version"		"1"
 
 
+  	"has_build_queue"
+	{
+	    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	    "BaseClass" "ability_datadriven"
+
+	    "Modifiers"
+	    {
+	      "modifier_has_build_queue"
+	      {
+	        "Passive" "1"
+	        "IsHidden"  "1"
+	        "OnOrder"
+	        {
+	          "RunScript"
+	          {
+	            "ScriptFile"  "scripts/vscripts/abilities.lua"
+	            "Function"    "builder_queue"
+	          }
+	        }
+	      }
+	    }
+	}
+
 	"invulnerable"
   	{
     	// General
@@ -527,7 +550,7 @@
 		"AbilityCastRange"				"200"
 		"UpdateHealth"					"1" //bool
 		"Scale"							"1" //bool
-		"MaxScale"						"1"
+		"MaxScale"						"0.5"
 		"PlayerCanControl"				"1" //bool. Should the player issuing this build command be able to control the building once built?
 		//"CancelsBuildingGhost"			"0" //bool
 		// Note: if unit uses a npc_dota_hero baseclass, you must use the npc_dota_hero name.
@@ -1635,6 +1658,7 @@
 					"MODIFIER_STATE_UNSELECTABLE"		"MODIFIER_STATE_VALUE_ENABLED"
 					"MODIFIER_STATE_INVULNERABLE"		"MODIFIER_STATE_VALUE_ENABLED"
 					"MODIFIER_STATE_NOT_ON_MINIMAP"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"		"MODIFIER_STATE_VALUE_ENABLED"
 				}
 			}
 		}

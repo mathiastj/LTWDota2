@@ -3,7 +3,6 @@ BASE_MODULES = {
 	'util',
 	'timers',
 	'physics',
-	'FlashUtil',
 	'lib.statcollection',
 	'abilities',
 	'samplerts',
@@ -102,6 +101,7 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_tinker", context)
 	PrecacheUnitByNameSync("npc_dota_hero_jakiro", context)
 	PrecacheUnitByNameSync("arrow_tower_two", context)
+	PrecacheUnitByNameSync("npc_ground_prop", context)
 	PrecacheUnitByNameSync("npc_sheep", context)
 	PrecacheUnitByNameSync("npc_wolf", context)
 	PrecacheUnitByNameSync("npc_skeleton", context)

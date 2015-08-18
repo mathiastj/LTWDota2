@@ -1,84 +1,71 @@
 -- The following three functions are necessary for building helper.
 
 function build( keys )
-	local player = keys.caster:GetPlayerOwner()
-	local pID = player:GetPlayerID()
+    local player = keys.caster:GetPlayerOwner()
+    local pID = player:GetPlayerID()
+    local ability = keys.ability
 
-	-- Check if player has enough resources here. If he doesn't they just return this function.
-	
-	local returnTable = BuildingHelper:AddBuilding(keys)
+    -- We don't want to charge the player resources at this point
+    -- This is only relevent for abilities that use AbilityGoldCost
+    local goldCost = keys.ability:GetGoldCost(-1)
+    PlayerResource:ModifyGold(pID, goldCost, false, 7) 
+    ability:EndCooldown()
 
-	keys:OnBuildingPosChosen(function(vPos)
-		--print("OnBuildingPosChosen")
-		-- in WC3 some build sound was played here.
-	end)
+    BuildingHelper:AddBuilding(keys)
 
-	keys:OnConstructionStarted(function(unit)
-		if Debug_BH then
-			print("Started construction of " .. unit:GetUnitName())
-		end
+    keys:OnBuildingPosChosen(function(vPos)
+        --print("OnBuildingPosChosen")
+        -- in WC3 some build sound was played here.
+    end)
 
+    keys:OnPreConstruction(function ()
+        -- Use this function to check/modify player resources before the construction begins
+        -- Return false to abort the build. It cause OnConstructionFailed to be called
+        if PlayerResource:GetGold(pID) < goldCost then
+            return false
+        end
 
-		unit.ready = false
+        PlayerResource:ModifyGold(pID, -1 * goldCost, false, 7)
+    end)
 
-		--Timers:CreateTimer(0.05, function() unit:SetAbsOrigin(pos) end)
-		Timers:CreateTimer(0.1, function()
-				FindClearSpaceForUnit(keys.caster, keys.caster:GetAbsOrigin(), true)
-			end)
+    keys:OnConstructionStarted(function(unit)
+    	local point = unit:GetAbsOrigin()
+		local groundProp = CreateUnitByName("npc_ground_prop", point, false, nil, nil, DOTA_TEAM_NEUTRALS)
+		groundProp.isGround = true
+		unit.ground = groundProp
+        -- This runs as soon as the building is created
+        FindClearSpaceForUnit(keys.caster, keys.caster:GetAbsOrigin(), true)
+        ability:StartCooldown(ability:GetCooldown(-1))
 
+    end)
+    keys:OnConstructionCompleted(function(unit)
+		unit.isBuilding = true
+        -- Play construction complete sound.
+        -- Give building its abilities
+        -- add the mana
+        unit:SetMana(unit:GetMaxMana())
+    end)
 
-		-- Unit is the building be built.
-		-- Play construction sound
-		-- FindClearSpace for the builder
-		
-		-- start the building with 0 mana.
-		unit:SetMana(0)
-	end)
-	keys:OnConstructionCompleted(function(unit)
-		local point = unit:GetAbsOrigin()
-		if Debug_BH then
-			print("Completed construction of " .. unit:GetUnitName())
-		end
+    -- These callbacks will only fire when the state between below half health/above half health changes.
+    -- i.e. it won't unnecessarily fire multiple times.
+    keys:OnBelowHalfHealth(function(unit)
+    end)
 
-	    local gridNavBlocker = SpawnEntityFromTableSynchronous("point_simple_obstruction", {
-		    origin = point
-		})
+    keys:OnAboveHalfHealth(function(unit)
 
-		unit.blocker = gridNavBlocker
+    end)
 
-		unit.ready = true
+    keys:OnConstructionFailed(function( building )
+        -- This runs when a building cannot be placed, you should refund resources if any. building is the unit that would've been built.
+    end)
 
-		unit:SetAbsOrigin(point)
+    keys:OnConstructionCancelled(function( building )
+        -- This runs when a building is cancelled, building is the unit that would've been built.
+    end)
 
-	    --Timers:CreateTimer(0.05, function() unit:SetAbsOrigin(pos) end)
-		FindClearSpaceForUnit(keys.caster, keys.caster:GetAbsOrigin(), true)
-		-- Play construction complete sound.
-		-- Give building its abilities
-		-- add the mana
-		unit:SetMana(unit:GetMaxMana())
-	end)
-
-	-- These callbacks will only fire when the state between below half health/above half health changes.
-	-- i.e. it won't unnecessarily fire multiple times.
-	keys:OnBelowHalfHealth(function(unit)
-		if Debug_BH then
-			print(unit:GetUnitName() .. " is below half health.")
-		end
-	end)
-
-	keys:OnAboveHalfHealth(function(unit)
-		if Debug_BH then
-			print(unit:GetUnitName() .. " is above half health.")
-		end
-	end)
-
-	--[[keys:OnCanceled(function()
-		print(keys.ability:GetAbilityName() .. " was canceled.")
-	end)]]
-
-	-- Have a fire effect when the building goes below 50% health.
-	-- It will turn off it building goes above 50% health again.
-	keys:EnableFireEffect("modifier_jakiro_liquid_fire_burn")
+    -- Have a fire effect when the building goes below 50% health.
+    -- It will turn off it building goes above 50% health again.
+    keys:EnableFireEffect("modifier_jakiro_liquid_fire_burn")
 end
 
 function building_canceled( keys )
@@ -101,10 +88,10 @@ function SellBuilding( keys )
 	print("unit name: " .. name)
 	print("sell bounty: " .. sellBounty)
 
-	if (not caster.ready) then
-		print("not ready")
-		return
-	end
+	-- if (not caster.ready) then
+	-- 	print("not ready")
+	-- 	return
+	-- end
 
 	if sellBounty ~= 0 then
 		hero:SetGold(hero:GetGold() + sellBounty, false)
@@ -119,8 +106,13 @@ function SellBuilding( keys )
 		PopupGoldGain(caster, sellBounty)
 	end
 
-	Timers:CreateTimer(0.06, function() caster:RemoveBuilding(true) end)
-	
+	Timers:CreateTimer(0.06, function() 
+		caster:RemoveBuilding(true) 
+		--caster.ground:ForceKill(true) 
+        caster.ground:RemoveSelf() 
+        --DoEntFireByInstanceHandle(caster.ground, "Disable", "1", 0, nil, nil)
+        --DoEntFireByInstanceHandle(caster.ground, "Kill", "1", 1, nil, nil)
+	end)
 end
 
 function UpgradeBuilding( keys )
@@ -131,21 +123,22 @@ function UpgradeBuilding( keys )
 	local pos = caster:GetAbsOrigin()
 	local hero = PlayerResource:GetSelectedHeroEntity(pID)
 	local squares = caster.squaresOccupied
-	local blocker = caster.blocker
+	local blockers = caster.blockers
 	local abilityName = keys.ability:GetAbilityName()
 	local ability_table = GameRules.AbilityKV[abilityName]
 	local buildCost = ability_table.AbilityGoldCost
+	local ground = caster.ground
 
-	if (not caster.ready) then
-		print("not ready - returning gold")
-		hero:SetGold(hero:GetGold() + buildCost, false) 
-		return
-	end
+	-- if (not caster.ready) then
+	-- 	print("not ready - returning gold")
+	-- 	hero:SetGold(hero:GetGold() + buildCost, false) 
+	-- 	return
+	-- end
 	
 	caster:RemoveSelf()
 
 	unit = CreateUnitByName(keys.Building, pos, false, hero, nil, hero:GetTeamNumber())
-	unit.blocker = blocker
+	unit.blockers = blockers
 	unit:SetOwner(hero)
 	unit:SetControllableByPlayer(pID, true)
 	unit:SetAbsOrigin(pos)
@@ -153,19 +146,20 @@ function UpgradeBuilding( keys )
 	unit.ready = true
 	unit.isBuilding = true
 	unit.building = true
+	unit.ground = ground
 
-	function unit:RemoveBuilding(bForceKill)
-		BuildingHelper:OpenSquares(self.squaresOccupied, "vector")
-		--self:OpenSquares(unit.squaresOccupied "string")
-		if bForceKill then
-		    self:RemoveSelf()
-		end
-	    if self.blocker ~= nil then
-	        print("Removing blocker")
-	        DoEntFireByInstanceHandle(self.blocker, "Disable", "1", 0, nil, nil)
-	        DoEntFireByInstanceHandle(self.blocker, "Kill", "1", 1, nil, nil)
+	  function unit:RemoveBuilding( bForcedKill )
+	    if unit.blockers ~= nil then
+	      for k, v in pairs(unit.blockers) do
+	        DoEntFireByInstanceHandle(v, "Disable", "1", 0, nil, nil)
+	        DoEntFireByInstanceHandle(v, "Kill", "1", 1, nil, nil)
+	      end
+
+	      if bForcedKill then
+	        unit:ForceKill(bForcedKill)
+	      end
 	    end
-	end
+	  end
 	
 	--player.lumber = player.lumber - keys.LumberCost
 	--print("Lumber Spend. " .. hero:GetUnitName() .. " is currently at " .. player.lumber)
@@ -203,5 +197,27 @@ function CheckFlyingAttack( event )
 	        end
 	    end
 	end
+end
+
+function builder_queue( keys )
+    local ability = keys.ability
+    local caster = keys.caster
+
+    if caster.ProcessingBuilding ~= nil then
+        -- caster is probably a builder, stop them
+        player = PlayerResource:GetPlayer(caster:GetMainControllingPlayer())
+        player.activeBuilding = nil
+        if player.activeBuilder and IsValidEntity(player.activeBuilder) then
+            if player.activeBuilder == caster then
+                player.activeBuilder:ClearQueue()
+                player.activeBuilder:Stop()
+                player.activeBuilder.ProcessingBuilding = false
+            else
+                player.activeBuilder = caster
+                player.activeBuilder:ClearQueue()
+                player.activeBuilder.ProcessingBuilding = false
+            end
+        end
+    end
 end
 
