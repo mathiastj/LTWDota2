@@ -7,7 +7,7 @@
 		"SoundSet"				"0"	
 		"Ability1"				"build_arrow_tower" 
 		"Ability2"				"build_sharp_tower" 
-		"Ability3"				"samplerts_empty1" 
+		"Ability3"				"build_elemental_tower" 
 		"Ability4"				"samplerts_empty2"
 		"Ability5"				"phased"
 		"Ability6"				""

@@ -29,6 +29,7 @@ function build( keys )
     end)
 
     keys:OnConstructionStarted(function(unit)
+    	unit.isBuilding = true
     	local point = unit:GetAbsOrigin()
 		local groundProp = CreateUnitByName("npc_ground_prop", point, false, nil, nil, DOTA_TEAM_NEUTRALS)
 		groundProp.isGround = true
@@ -39,7 +40,10 @@ function build( keys )
 
     end)
     keys:OnConstructionCompleted(function(unit)
-		unit.isBuilding = true
+		local hero = unit:GetOwner()
+		local player = hero:GetPlayerOwner()
+		table.insert(player.towers, unit)
+		CheckAbilityRequirements( unit, player )
         -- Play construction complete sound.
         -- Give building its abilities
         -- add the mana
@@ -106,13 +110,27 @@ function SellBuilding( keys )
 		PopupGoldGain(caster, sellBounty)
 	end
 
-	Timers:CreateTimer(0.06, function() 
-		caster:RemoveBuilding(true) 
+	-- Remove the old building from the structures list
+	if IsValidEntity(caster) then
+		local buildingIndex = GetIndex(player.towers, caster)
+	end
+    table.remove(player.towers, buildingIndex)
+
+    if caster.blockers ~= nil then
+      for k, v in pairs(caster.blockers) do
+        DoEntFireByInstanceHandle(v, "Disable", "1", 0, nil, nil)
+        DoEntFireByInstanceHandle(v, "Kill", "1", 1, nil, nil)
+      end
+      caster:ForceKill(true)
+    end
+
+		--caster:RemoveBuilding(true) 
 		--caster.ground:ForceKill(true) 
-        caster.ground:RemoveSelf() 
+        --caster.ground:RemoveSelf() 
         --DoEntFireByInstanceHandle(caster.ground, "Disable", "1", 0, nil, nil)
         --DoEntFireByInstanceHandle(caster.ground, "Kill", "1", 1, nil, nil)
-	end)
+
+
 end
 
 function UpgradeBuilding( keys )
@@ -148,18 +166,27 @@ function UpgradeBuilding( keys )
 	unit.building = true
 	unit.ground = ground
 
-	  function unit:RemoveBuilding( bForcedKill )
-	    if unit.blockers ~= nil then
-	      for k, v in pairs(unit.blockers) do
-	        DoEntFireByInstanceHandle(v, "Disable", "1", 0, nil, nil)
-	        DoEntFireByInstanceHandle(v, "Kill", "1", 1, nil, nil)
-	      end
+	-- Remove the old building from the structures list
+	if IsValidEntity(caster) then
+		local buildingIndex = GetIndex(player.towers, caster)
+	end
+    table.remove(player.towers, buildingIndex)
 
-	      if bForcedKill then
-	        unit:ForceKill(bForcedKill)
-	      end
-	    end
-	  end
+	-- Add the new building to the structures list
+	table.insert(player.towers, unit)
+
+	  -- function unit:RemoveBuilding( bForcedKill )
+	  --   if unit.blockers ~= nil then
+	  --     for k, v in pairs(unit.blockers) do
+	  --       DoEntFireByInstanceHandle(v, "Disable", "1", 0, nil, nil)
+	  --       DoEntFireByInstanceHandle(v, "Kill", "1", 1, nil, nil)
+	  --     end
+
+	  --     if bForcedKill then
+	  --       unit:ForceKill(bForcedKill)
+	  --     end
+	  --   end
+	  -- end
 	
 	--player.lumber = player.lumber - keys.LumberCost
 	--print("Lumber Spend. " .. hero:GetUnitName() .. " is currently at " .. player.lumber)

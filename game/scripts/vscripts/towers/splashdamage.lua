@@ -1,6 +1,6 @@
 function SplashDamage(keys)
 	local caster = keys.caster
-	local keydamage = caster:GetAverageTrueAttackDamage()/2
+	local keydamage = caster:GetAverageTrueAttackDamage()
 	local radius = keys.radius
 	local target = keys.target
 

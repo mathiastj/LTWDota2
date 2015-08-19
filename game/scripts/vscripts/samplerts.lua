@@ -153,6 +153,8 @@ function SampleRTS:OnHeroInGame(hero)
 	-- This line for example will set the starting gold of every hero to 500 unreliable gold
 	hero:SetGold(0, false)
 	player.lumber = 0
+	player.tech = {} -- This keeps the name and quantity of each building, to access in O(1)
+	player.towers = {} -- This keeps the handle of the constructed units, to iterate for unlocking upgrades
     --FireGameEvent('cgm_player_lumber_changed', { player_ID = playerID, lumber = player.lumber })
     CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(player.lumber) })
 	--Timers:CreateTimer(10, function() hero:SetGold(40, false) return end)

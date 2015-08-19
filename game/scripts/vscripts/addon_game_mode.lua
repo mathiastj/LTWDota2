@@ -10,6 +10,7 @@ BASE_MODULES = {
 	'ltw',
 	'multi',
 	'popups',
+	'upgrades',
 }
 
 --MODULE LOADER STUFF
@@ -84,9 +85,12 @@ function Precache( context )
 	PrecacheResource("model_folder", "particles/heroes/antimage", context)
 	PrecacheResource("model", "particles/heroes/viper/viper.vmdl", context)
 	PrecacheModel("models/heroes/viper/viper.vmdl", context)
+	PrecacheResource( "model_folder", "models/heroes/wisp/", context )
+	PrecacheResource( "particle_folder", "particles/units/heroes/wisp/", context )
 
 	-- Sounds can precached here like anything else
 	PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_gyrocopter.vsndevts", context)
+
 
 	-- Entire items can be precached by name
 	-- Abilities can also be precached in this way despite the name
@@ -100,6 +104,7 @@ function Precache( context )
 	PrecacheUnitByNameSync("npc_dota_hero_drow_ranger", context)
 	PrecacheUnitByNameSync("npc_dota_hero_tinker", context)
 	PrecacheUnitByNameSync("npc_dota_hero_jakiro", context)
+	PrecacheUnitByNameSync("npc_dota_hero_wisp", context)
 	PrecacheUnitByNameSync("arrow_tower_two", context)
 	PrecacheUnitByNameSync("npc_ground_prop", context)
 	PrecacheUnitByNameSync("npc_sheep", context)
@@ -122,6 +127,11 @@ function Precache( context )
 	PrecacheUnitByNameSync("sharp_tower_four_one", context)
 	PrecacheUnitByNameSync("sharp_tower_four_two", context)
 	PrecacheUnitByNameSync("npc_anti_cheat", context)
+	PrecacheUnitByNameSync("elemental_tower", context)
+	PrecacheUnitByNameSync("fire_tower_one", context)
+	PrecacheUnitByNameSync("fire_tower_two", context)
+	PrecacheUnitByNameSync("ice_tower_one", context)
+	
 	
 
 	
@@ -144,4 +154,5 @@ function Activate()
 	GameRules.UnitKV = LoadKeyValues("scripts/npc/npc_units_custom.txt")
 	GameRules.AbilityKV = LoadKeyValues("scripts/npc/npc_abilities_custom.txt")
 	GameRules.ItemKV = LoadKeyValues("scripts/npc/npc_items_custom.txt")
+	GameRules.Requirements = LoadKeyValues("scripts/kv/tech_tree.kv")
 end

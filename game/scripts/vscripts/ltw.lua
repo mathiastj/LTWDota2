@@ -65,8 +65,14 @@ function LTW:On_entity_killed(data)
 	-- end
 
 	if unit.isBuilding then
-		unit:RemoveBuilding(true)
+		--unit:RemoveBuilding(true)
 		unit.ground:RemoveSelf()
+    	if unit.blockers ~= nil then
+      		for k, v in pairs(unit.blockers) do
+        		DoEntFireByInstanceHandle(v, "Disable", "1", 0, nil, nil)
+        		DoEntFireByInstanceHandle(v, "Kill", "1", 1, nil, nil)
+      		end
+    	end
 		print("is building")
 	elseif unit.isGround then
 		print("remove ground")	
