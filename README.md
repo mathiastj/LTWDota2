@@ -10,7 +10,5 @@ https://github.com/Myll/Dota-2-Building-Helper
 Here's a few gameplay examples:  
 
 ![](https://thumbs.gfycat.com/ActiveFarawayArcticseal-size_restricted.gif)  
-Higher quality: https://gfycat.com/activefarawayarcticseal  
 
 ![](https://thumbs.gfycat.com/EthicalAggressiveAlligator-size_restricted.gif)  
-Higher quality: https://gfycat.com/ethicalaggressivealligator
